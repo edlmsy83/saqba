@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>لوحة الإدارة — بوابة سقبا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ════ LOGIN ════ -->
+<div id="login-page" style="display:none;width:100%">
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-head">
+      <div class="login-ico">🛡️</div>
+      <h1 class="login-title">لوحة الإدارة</h1>
+      <p class="login-sub">الدخول مقتصر على المشرفين المعتمدين</p>
+      <div class="admin-badge">🛡️ ADMIN ACCESS</div>
+    </div>
+    <form onsubmit="doAdminLogin(event)" style="margin-top:1.8rem">
+      <div class="fgrp">
+        <label class="flbl">البريد الإلكتروني <span class="req">*</span></label>
+        <input class="finp" id="al-email" type="email" placeholder="admin@saqba.sy" required>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">كلمة المرور <span class="req">*</span></label>
+        <input class="finp" id="al-pass" type="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-gold btn-full btn-lg" id="al-btn">
+        <span class="btxt">🛡️ دخول لوحة الإدارة</span>
+      </button>
+    </form>
+    <div style="text-align:center;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--bd)">
+      <a href="index.html" style="font-size:.82rem;color:var(--tx3);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--t2)'" onmouseout="this.style.color='var(--tx3)'">← العودة للبوابة</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════ DASHBOARD ════ -->
+<div id="dash-page" style="display:none;width:100%">
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sb-head">
+      <div class="sb-logo">
+        <div class="sb-emblem">🛡️</div>
+        <div><div class="sb-lbl">بوابة سقبا</div><div class="sb-lbl-sub">لوحة الإدارة</div></div>
+      </div>
+      <div class="admin-badge" style="font-size:.65rem">🔴 ADMIN PANEL</div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">رئيسي</div>
+      <button class="sb-item on" onclick="gv('dash')"       id="ni-dash">      <span class="ic">📊</span>نظرة عامة</button>
+      <div class="sb-sec">الخدمات</div>
+      <button class="sb-item"    onclick="gv('gas')"        id="ni-gas">       <span class="ic">🔥</span>طلبات الغاز<span class="sb-cnt" id="nc-gas">0</span></button>
+      <button class="sb-item"    onclick="gv('complaints')" id="ni-complaints"><span class="ic">📣</span>الشكاوى<span class="sb-cnt" id="nc-comp">0</span></button>
+      <div class="sb-sec">المحتوى</div>
+      <button class="sb-item"    onclick="gv('news')"       id="ni-news">      <span class="ic">📰</span>الأخبار</button>
+      <button class="sb-item"    onclick="gv('gallery')"    id="ni-gallery">   <span class="ic">🖼️</span>معرض الصور</button>
+      <div class="sb-sec">النظام</div>
+      <button class="sb-item"    onclick="gv('users')"      id="ni-users">     <span class="ic">👥</span>المستخدمون</button>
+    </nav>
+    <div class="sb-foot">
+      <a href="index.html" class="btn btn-ghost btn-sm" style="justify-content:center">🏠 البوابة</a>
+      <button class="btn btn-danger btn-sm" onclick="doLogout()" style="justify-content:center">🚪 خروج</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="tb-crumb">
+        <span class="tb-crumb-p">بوابة سقبا</span>
+        <span class="tb-sep">›</span>
+        <span class="tb-crumb-c" id="tb-crumb">نظرة عامة</span>
+      </div>
+      <div class="tb-admin">
+        <span id="tb-admin-name">مشرف النظام</span>
+        <div class="tb-av">🛡️</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ── DASHBOARD ── -->
+      <div id="v-dash" class="vp on">
+        <div class="pg-title">لوحة التحكم</div>
+        <div class="pg-sub">نظرة شاملة على نشاط بوابة مدينة سقبا</div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-ico si-teal">👥</div><div><div class="stat-n" id="st-u">—</div><div class="stat-l">المستخدمون</div></div></div>
+          <div class="stat-card"><div class="stat-ico si-gold">🔥</div><div><div class="stat-n" id="st-g">—</div><div class="stat-l">طلبات الغاز الكلية</div></div></div>
+          <div class="stat-card"><div class="stat-ico si-red">⏳</div><div><div class="stat-n" id="st-gp">—</div><div class="stat-l">طلبات معلقة</div></div></div>
+          <div class="stat-card"><div class="stat-ico si-gold">📣</div><div><div class="stat-n" id="st-c">—</div><div class="stat-l">الشكاوى الكلية</div></div></div>
+          <div class="stat-card"><div class="stat-ico si-red">🔴</div><div><div class="stat-n" id="st-co">—</div><div class="stat-l">شكاوى مفتوحة</div></div></div>
+          <div class="stat-card"><div class="stat-ico si-sky">📰</div><div><div class="stat-n" id="st-n">—</div><div class="stat-l">الأخبار</div></div></div>
+        </div>
+        <!-- recent gas -->
+        <div class="panel">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-gold">🔥</div><span class="panel-title">أحدث طلبات الغاز</span></div><button class="btn btn-ghost btn-sm" onclick="gv('gas')">عرض الكل</button></div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>رقم الدور</th><th>الاسم</th><th>الحي</th><th>الاسطوانات</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="d-gas-tbody"><tr><td colspan="7"><div class="empty"><div class="empty-ico">⏳</div><div class="empty-title">جاري التحميل...</div></div></td></tr></tbody></table></div>
+        </div>
+        <!-- recent complaints -->
+        <div class="panel">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-teal">📣</div><span class="panel-title">أحدث الشكاوى</span></div><button class="btn btn-ghost btn-sm" onclick="gv('complaints')">عرض الكل</button></div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>النوع</th><th>الوصف</th><th>صورة</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="d-comp-tbody"><tr><td colspan="6"><div class="empty"><div class="empty-ico">⏳</div><div class="empty-title">جاري التحميل...</div></div></td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ── GAS MANAGEMENT ── -->
+      <div id="v-gas" class="vp">
+        <div class="panel">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-gold">🔥</div><span class="panel-title">إدارة طلبات الغاز</span></div><button class="btn btn-teal btn-sm" onclick="loadGas()">🔄 تحديث</button></div>
+          <div class="filter-bar">
+            <select class="filt-sel" id="gas-sf" onchange="loadGas()">
+              <option value="">جميع الطلبات</option>
+              <option value="pending">قيد الانتظار</option>
+              <option value="approved">مقبول</option>
+              <option value="delivered">تم التسليم</option>
+              <option value="rejected">مرفوض</option>
+            </select>
+            <input class="filt-inp" id="gas-si" placeholder="ابحث باسم أو هاتف..." oninput="filterGas()">
+          </div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>رقم الدور</th><th>الاسم</th><th>الهاتف</th><th>الحي</th><th>الاسطوانات</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="gas-tbody"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ── COMPLAINTS MANAGEMENT ── -->
+      <div id="v-complaints" class="vp">
+        <div class="panel">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-teal">📣</div><span class="panel-title">إدارة الشكاوى</span></div><button class="btn btn-teal btn-sm" onclick="loadComps()">🔄 تحديث</button></div>
+          <div class="filter-bar">
+            <select class="filt-sel" id="comp-sf" onchange="loadComps()">
+              <option value="">جميع الشكاوى</option>
+              <option value="open">مفتوحة</option>
+              <option value="in_progress">قيد المعالجة</option>
+              <option value="resolved">محلولة</option>
+              <option value="closed">مغلقة</option>
+            </select>
+          </div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>النوع</th><th>الوصف</th><th>صورة</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="comp-tbody"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ── NEWS MANAGEMENT ── -->
+      <div id="v-news" class="vp">
+        <div class="panel" style="margin-bottom:1.5rem">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-sky">📰</div><span class="panel-title">إضافة خبر جديد</span></div></div>
+          <form onsubmit="addNews(event)" class="add-form">
+            <div class="fgrid">
+              <div class="fgrp span2"><label class="flbl">عنوان الخبر <span class="req">*</span></label><input class="finp" id="n-title" type="text" placeholder="عنوان الخبر أو الإعلان" required></div>
+              <div class="fgrp span2"><label class="flbl">المحتوى <span class="req">*</span></label><textarea class="ftxt" id="n-body" placeholder="تفاصيل الخبر..." required></textarea></div>
+              <div class="fgrp span2"><label class="flbl">صورة (اختياري)</label><input class="finp" id="n-img" type="file" accept="image/*" style="padding:.5rem"></div>
+            </div>
+            <button type="submit" class="btn btn-gold" id="n-btn"><span class="btxt">➕ نشر الخبر</span></button>
+          </form>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-sky">📰</div><span class="panel-title">الأخبار المنشورة</span></div><button class="btn btn-ghost btn-sm" onclick="loadNews()">🔄 تحديث</button></div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>صورة</th><th>العنوان</th><th>المحتوى</th><th>التاريخ</th><th>حذف</th></tr></thead><tbody id="news-tbody"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- ── GALLERY MANAGEMENT ── -->
+      <div id="v-gallery" class="vp">
+        <div class="panel" style="margin-bottom:1.5rem">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-pur">🖼️</div><span class="panel-title">إضافة صورة للمعرض</span></div></div>
+          <form onsubmit="addGal(event)" class="add-form">
+            <div class="fgrid">
+              <div class="fgrp"><label class="flbl">صورة المعرض <span class="req">*</span></label><input class="finp" id="g-img" type="file" accept="image/*" style="padding:.5rem" required></div>
+              <div class="fgrp"><label class="flbl">وصف الصورة</label><input class="finp" id="g-desc" type="text" placeholder="وصف مختصر للصورة"></div>
+            </div>
+            <button type="submit" class="btn btn-gold" id="g-btn"><span class="btxt">➕ إضافة للمعرض</span></button>
+          </form>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-pur">🖼️</div><span class="panel-title">صور المعرض</span></div><button class="btn btn-ghost btn-sm" onclick="loadGal()">🔄 تحديث</button></div>
+          <div class="gal-grid" id="gal-grid"></div>
+        </div>
+      </div>
+
+      <!-- ── USERS ── -->
+      <div id="v-users" class="vp">
+        <div class="panel">
+          <div class="panel-head"><div class="ph-left"><div class="panel-icon pi-teal">👥</div><span class="panel-title">إدارة المستخدمين</span></div><button class="btn btn-teal btn-sm" onclick="loadUsers()">🔄 تحديث</button></div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الاسم</th><th>البريد الإلكتروني</th><th>الهاتف</th><th>الحي</th><th>تاريخ التسجيل</th><th>الصلاحية</th></tr></thead><tbody id="users-tbody"></tbody></table></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb" id="lb">
+  <div class="lb-close" onclick="document.getElementById('lb').classList.remove('on')">✕</div>
+  <img id="lb-img" src="" alt="">
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="js/utils.js"></script>
+<script type="module" src="js/firebase-config.js"></script>
+<script>
+/* Fallbacks */
+if(typeof FirestoreService==='undefined')window.FirestoreService={getDashboardStats:async()=>({totalUsers:0,totalGasRequests:0,pendingGasRequests:0,totalComplaints:0,openComplaints:0,totalNews:0}),getAllGasRequests:async()=>[],updateGasRequestStatus:async()=>{},getAllComplaints:async()=>[],updateComplaintStatus:async()=>{},createNews:async()=>{},getNews:async()=>[],deleteNews:async()=>{},getGallery:async()=>[],addGalleryImage:async()=>{},deleteGalleryImage:async()=>{}};
+if(typeof AuthService==='undefined')window.AuthService={login:async()=>{throw{code:'auth/no-config'}},logout:async()=>{},isAdmin:async()=>false};
+if(typeof formatDate==='undefined')window.formatDate=ts=>{if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('ar-SY',{year:'numeric',month:'long',day:'numeric'})};
+if(typeof statusMap==='undefined')window.statusMap={pending:{label:'قيد الانتظار',cls:'b-pending'},approved:{label:'مقبول',cls:'b-approved'},delivered:{label:'تم التسليم',cls:'b-delivered'},rejected:{label:'مرفوض',cls:'b-rejected'},open:{label:'مفتوحة',cls:'b-pending'},in_progress:{label:'قيد المعالجة',cls:'b-approved'},resolved:{label:'محلولة',cls:'b-delivered'},closed:{label:'مغلقة',cls:'b-rejected'}};
+
+/* Toast */
+function toast(msg,ok=true){
+  if(typeof showToast!=='undefined'){showToast(msg,ok);return}
+  const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(ok?'toast-ok':'toast-err');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500)
+}
+
+/* Auth */
+async function doAdminLogin(e){
+  e.preventDefault();
+  const btn=document.getElementById('al-btn');btn.disabled=true;btn.classList.add('btn-loading');
+  try{
+    const c=await AuthService.login(document.getElementById('al-email').value,document.getElementById('al-pass').value);
+    const ok=await AuthService.isAdmin(c.user.uid);
+    if(!ok){await AuthService.logout();toast('ليس لديك صلاحية الوصول',false);btn.disabled=false;btn.classList.remove('btn-loading')}
+  }catch(er){
+    const m={['auth/user-not-found']:'بريد غير موجود',['auth/wrong-password']:'كلمة المرور خاطئة',['auth/too-many-requests']:'تجاوزت عدد المحاولات'}[er.code]||'حدث خطأ';
+    toast(m,false);btn.disabled=false;btn.classList.remove('btn-loading');
+  }
+}
+async function doLogout(){await AuthService.logout()}
+
+document.addEventListener('userLoggedIn',async e=>{
+  const ok=await AuthService.isAdmin(e.detail.uid);
+  if(!ok){await AuthService.logout();toast('لا تملك صلاحيات الإدارة',false);return}
+  document.getElementById('login-page').style.display='none';
+  document.getElementById('dash-page').style.display='';
+  const ud=await(typeof FirestoreService!=='undefined'?FirestoreService.getUser?FirestoreService.getUser(e.detail.uid):Promise.resolve(null):Promise.resolve(null));
+  document.getElementById('tb-admin-name').textContent=(ud&&ud.name)||'مشرف النظام';
+  loadDash();
+});
+document.addEventListener('userLoggedOut',()=>{
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('dash-page').style.display='none';
+});
+/* Show login initially */
+document.getElementById('login-page').style.display='flex';
+
+/* View nav */
+function gv(v){
+  document.querySelectorAll('.vp').forEach(p=>p.classList.remove('on'));
+  document.getElementById('v-'+v).classList.add('on');
+  document.querySelectorAll('.sb-item').forEach(b=>b.classList.remove('on'));
+  const ni=document.getElementById('ni-'+v);if(ni)ni.classList.add('on');
+  const ts={dash:'نظرة عامة',gas:'طلبات الغاز',complaints:'الشكاوى',news:'الأخبار',gallery:'معرض الصور',users:'المستخدمون'};
+  document.getElementById('tb-crumb').textContent=ts[v]||'';
+  if(v==='gas')loadGas();
+  if(v==='complaints')loadComps();
+  if(v==='news')loadNews();
+  if(v==='gallery')loadGal();
+  if(v==='users')loadUsers();
+}
+
+/* Dashboard */
+async function loadDash(){
+  try{
+    const s=await FirestoreService.getDashboardStats();
+    ['u','g','gp','c','co','n'].forEach((k,i)=>{document.getElementById('st-'+k).textContent=[s.totalUsers,s.totalGasRequests,s.pendingGasRequests,s.totalComplaints,s.openComplaints,s.totalNews][i]});
+    document.getElementById('nc-gas').textContent=s.pendingGasRequests;
+    document.getElementById('nc-comp').textContent=s.openComplaints;
+  }catch(e){}
+  try{const r=await FirestoreService.getAllGasRequests();renderGasTbl(r.slice(0,5),'d-gas-tbody')}catch(e){}
+  try{const c=await FirestoreService.getAllComplaints();renderCompTbl(c.slice(0,5),'d-comp-tbody')}catch(e){}
+}
+
+/* Gas */
+let allGas=[];
+async function loadGas(){
+  document.getElementById('gas-tbody').innerHTML=etr(8,'⏳ جاري التحميل...');
+  try{const sf=document.getElementById('gas-sf').value;allGas=await FirestoreService.getAllGasRequests(sf||null);renderGasTbl(allGas,'gas-tbody')}catch(e){document.getElementById('gas-tbody').innerHTML=etr(8,'⚠️ خطأ في التحميل')}
+}
+function filterGas(){const q=document.getElementById('gas-si').value.toLowerCase();renderGasTbl(allGas.filter(r=>r.name?.toLowerCase().includes(q)||r.phone?.includes(q)),'gas-tbody')}
+function renderGasTbl(data,tid){
+  const tb=document.getElementById(tid);
+  if(!data.length){tb.innerHTML=etr(8,'لا توجد نتائج');return}
+  tb.innerHTML=data.map(r=>{const s=statusMap[r.status]||{label:r.status,cls:''};return`<tr>
+    <td><strong style="color:var(--goldb)">#${esc(r.queueNumber)}</strong></td>
+    <td>${esc(r.name||'—')}</td>
+    <td style="direction:ltr;text-align:right">${esc(r.phone||'—')}</td>
+    <td>${esc(r.district||'—')}</td>
+    <td>${esc(r.cylinders)} اسطوانة</td>
+    <td style="font-size:.78rem">${formatDate(r.createdAt)}</td>
+    <td><span class="badge ${s.cls}">${esc(s.label)}</span></td>
+    <td><div class="acts">
+      ${r.status==='pending'?`<button class="btn btn-approve btn-sm" onclick="updGas('${esc(r.id)}','approved')">قبول</button>`:''}
+      ${r.status==='approved'?`<button class="btn btn-deliver btn-sm" onclick="updGas('${esc(r.id)}','delivered')">تسليم</button>`:''}
+      ${r.status!=='rejected'&&r.status!=='delivered'?`<button class="btn btn-danger btn-sm" onclick="updGas('${esc(r.id)}','rejected')">رفض</button>`:''}
+    </div></td>
+  </tr>`}).join('');
+}
+async function updGas(id,status){
+  try{await FirestoreService.updateGasRequestStatus(id,status);toast('تم تحديث الحالة ✓');loadGas();loadDash()}catch(e){toast('خطأ في التحديث',false)}
+}
+
+/* Complaints */
+async function loadComps(){
+  document.getElementById('comp-tbody').innerHTML=etr(6,'⏳ جاري التحميل...');
+  try{const sf=document.getElementById('comp-sf').value;const all=await FirestoreService.getAllComplaints();const d=sf?all.filter(c=>c.status===sf):all;renderCompTbl(d,'comp-tbody')}catch(e){document.getElementById('comp-tbody').innerHTML=etr(6,'⚠️ خطأ')}
+}
+function renderCompTbl(data,tid){
+  const tb=document.getElementById(tid);
+  if(!data.length){tb.innerHTML=etr(6,'لا توجد شكاوى');return}
+  tb.innerHTML=data.map(c=>{const s=statusMap[c.status]||{label:c.status,cls:''};return`<tr>
+    <td>${esc(c.type||'—')}</td>
+    <td style="max-width:200px;font-size:.8rem;color:var(--tx3)">${esc((c.description||'').substring(0,75))}${(c.description||'').length>75?'...':''}</td>
+    <td>${c.image?`<img src="${esc(c.image)}" class="thumb" onclick="openLb('${esc(c.image)}')">`:'—'}</td>
+    <td style="font-size:.78rem">${formatDate(c.createdAt)}</td>
+    <td><span class="badge ${s.cls}">${esc(s.label)}</span></td>
+    <td><div class="acts">
+      ${c.status==='open'?`<button class="btn btn-approve btn-sm" onclick="updComp('${esc(c.id)}','in_progress')">معالجة</button>`:''}
+      ${c.status!=='resolved'&&c.status!=='closed'?`<button class="btn btn-deliver btn-sm" onclick="updComp('${esc(c.id)}','resolved')">حل</button>`:''}
+      ${c.status!=='closed'?`<button class="btn btn-danger btn-sm" onclick="updComp('${esc(c.id)}','closed')">إغلاق</button>`:''}
+    </div></td>
+  </tr>`}).join('');
+}
+async function updComp(id,status){
+  try{await FirestoreService.updateComplaintStatus(id,status);toast('تم تحديث الشكوى ✓');loadComps();loadDash()}catch(e){toast('خطأ في التحديث',false)}
+}
+
+/* News */
+async function addNews(e){
+  e.preventDefault();const btn=document.getElementById('n-btn');btn.disabled=true;btn.classList.add('btn-loading');
+  try{await FirestoreService.createNews({title:document.getElementById('n-title').value,content:document.getElementById('n-body').value},document.getElementById('n-img').files[0]||null);toast('تم نشر الخبر 📰');e.target.reset();loadNews();loadDash()}
+  catch(er){toast('خطأ في نشر الخبر',false)}
+  btn.disabled=false;btn.classList.remove('btn-loading');
+}
+async function loadNews(){
+  document.getElementById('news-tbody').innerHTML=etr(5,'⏳ جاري التحميل...');
+  try{const n=await FirestoreService.getNews(50);
+    document.getElementById('news-tbody').innerHTML=n.length?n.map(it=>`<tr>
+      <td>${it.image?`<img src="${esc(it.image)}" class="thumb">`:'—'}</td>
+      <td><strong>${esc(it.title)}</strong></td>
+      <td style="max-width:200px;font-size:.8rem;color:var(--tx3)">${esc((it.content||'').substring(0,80))}...</td>
+      <td style="font-size:.78rem">${formatDate(it.createdAt)}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="delNews('${esc(it.id)}')">🗑️ حذف</button></td>
+    </tr>`).join(''):etr(5,'لا توجد أخبار منشورة');
+  }catch(e){document.getElementById('news-tbody').innerHTML=etr(5,'⚠️ خطأ')}
+}
+async function delNews(id){if(!confirm('حذف هذا الخبر؟'))return;try{await FirestoreService.deleteNews(id);toast('تم الحذف');loadNews()}catch(e){toast('خطأ في الحذف',false)}}
+
+/* Gallery */
+async function addGal(e){
+  e.preventDefault();const btn=document.getElementById('g-btn');const f=document.getElementById('g-img').files[0];
+  if(!f){toast('اختر صورة',false);return}
+  btn.disabled=true;btn.classList.add('btn-loading');
+  try{await FirestoreService.addGalleryImage({description:document.getElementById('g-desc').value},f);toast('تمت إضافة الصورة 🖼️');e.target.reset();loadGal()}
+  catch(er){toast('خطأ في رفع الصورة',false)}
+  btn.disabled=false;btn.classList.remove('btn-loading');
+}
+async function loadGal(){
+  const g=document.getElementById('gal-grid');g.innerHTML='<div style="grid-column:1/-1"><div class="empty"><div class="empty-ico">⏳</div><div class="empty-title">جاري التحميل...</div></div></div>';
+  try{const items=await FirestoreService.getGallery();
+    g.innerHTML=items.length?items.map(it=>`<div class="gal-item"><img src="${esc(it.image)}" alt="${esc(it.description||'')}" loading="lazy"><div class="gal-ov"><button class="gal-del" onclick="delGal('${esc(it.id)}')">🗑️ حذف</button></div></div>`).join(''):'<div style="grid-column:1/-1"><div class="empty"><div class="empty-ico">🖼️</div><div class="empty-title">لا توجد صور</div></div></div>';
+  }catch(e){g.innerHTML='<div style="grid-column:1/-1"><div class="empty"><div class="empty-ico">⚠️</div><div class="empty-title">خطأ في التحميل</div></div></div>'}
+}
+async function delGal(id){if(!confirm('حذف هذه الصورة؟'))return;try{await FirestoreService.deleteGalleryImage(id);toast('تم الحذف');loadGal()}catch(e){toast('خطأ في الحذف',false)}}
+
+/* Users */
+async function loadUsers(){
+  document.getElementById('users-tbody').innerHTML=etr(6,'⏳ جاري التحميل...');
+  try{
+    const users = await FirestoreService.getAllUsers();
+    document.getElementById('users-tbody').innerHTML=users.length?users.map(u=>`<tr>
+      <td>${esc(u.name||'—')}</td>
+      <td style="direction:ltr;text-align:right;font-size:.82rem">${esc(u.email||'—')}</td>
+      <td style="direction:ltr;text-align:right">${esc(u.phone||'—')}</td>
+      <td>${esc(u.district||'—')}</td>
+      <td style="font-size:.78rem">${formatDate(u.createdAt)}</td>
+      <td><span class="badge ${u.role==='admin'?'b-approved':'b-pending'}">${u.role==='admin'?'🛡️ مشرف':'👤 مواطن'}</span></td>
+    </tr>`).join(''):etr(6,'لا يوجد مستخدمون');
+  }catch(e){document.getElementById('users-tbody').innerHTML=etr(6,'⚠️ خطأ في التحميل')}
+}
+
+/* Helpers */
+function etr(cols,msg){return`<tr><td colspan="${cols}"><div class="empty"><div class="empty-ico">📋</div><div class="empty-title">${msg}</div></div></td></tr>`}
+function openLb(src){document.getElementById('lb-img').src=src;document.getElementById('lb').classList.add('on')}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('on')})
+</script>
+</body>
+</html>

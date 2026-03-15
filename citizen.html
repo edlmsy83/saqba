@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>حساب المواطن — بوابة سقبا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/citizen.css">
+</head>
+<body>
+
+<!-- ════ AUTH SCREEN ════ -->
+<div id="auth-page" style="width:100%">
+<div class="auth-page">
+  <div class="auth-ring auth-ring-1"></div>
+  <div class="auth-ring auth-ring-2"></div>
+
+  <div class="auth-card">
+    <div class="auth-head">
+      <div class="auth-logo">👤</div>
+      <h1 class="auth-title">حساب المواطن</h1>
+      <p class="auth-sub">سجّل الدخول أو أنشئ حساباً للوصول إلى الخدمات</p>
+    </div>
+
+    <div class="atabs">
+      <button class="atab on" onclick="atab('login',this)">تسجيل الدخول</button>
+      <button class="atab"    onclick="atab('reg',this)">حساب جديد</button>
+    </div>
+
+    <!-- Login -->
+    <form class="aform on" id="f-login" onsubmit="doLogin(event)">
+      <div class="fgrp">
+        <label class="flbl">البريد الإلكتروني <span class="req">*</span></label>
+        <input class="finp" id="l-email" type="email" placeholder="example@email.com" required>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">كلمة المرور <span class="req">*</span></label>
+        <input class="finp" id="l-pass" type="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">
+        <span class="btxt">تسجيل الدخول</span>
+      </button>
+      <p class="auth-switch">ليس لديك حساب؟ <span onclick="atab('reg', document.querySelectorAll('.atab')[1])">أنشئ حساباً</span></p>
+    </form>
+
+    <!-- Register -->
+    <form class="aform" id="f-reg" onsubmit="doRegister(event)">
+      <div class="fgrid">
+        <div class="fgrp"><label class="flbl">الاسم الكامل <span class="req">*</span></label><input class="finp" id="r-name" type="text" placeholder="محمد أحمد" required></div>
+        <div class="fgrp"><label class="flbl">رقم الهاتف <span class="req">*</span></label><input class="finp" id="r-phone" type="tel" placeholder="09XXXXXXXX" required></div>
+      </div>
+      <div class="fgrp">
+        <label class="flbl">الحي <span class="req">*</span></label>
+        <select class="fsel" id="r-dist" required>
+          <option value="">اختر الحي...</option>
+          <option>حي الجامع</option><option>حي الميدان</option><option>حي البلد</option>
+          <option>حي الشهداء</option><option>حي النور</option><option>حي الزهراء</option>
+          <option>حي القدس</option><option>حي السلام</option><option>حي الوحدة</option>
+          <option>حي الفرحة</option><option>حي الريحان</option><option>حي الياسمين</option>
+        </select>
+      </div>
+      <div class="fgrp"><label class="flbl">البريد الإلكتروني <span class="req">*</span></label><input class="finp" id="r-email" type="email" placeholder="example@email.com" required></div>
+      <div class="fgrid">
+        <div class="fgrp"><label class="flbl">كلمة المرور <span class="req">*</span></label>
+          <input class="finp" id="r-pass" type="password" placeholder="6 أحرف كحد أدنى" required minlength="6">
+          <div id="pstrength" style="margin-top:.5rem">
+            <div style="height:4px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden">
+              <div class="ps-fill" style="height:100%;width:0%;transition:width .35s,background .35s;border-radius:99px"></div>
+            </div>
+            <div class="ps-label" style="font-size:.72rem;color:var(--tx3);margin-top:.25rem;min-height:1rem;text-align:right"></div>
+          </div>
+        </div>
+        <div class="fgrp"><label class="flbl">تأكيد كلمة المرور <span class="req">*</span></label>
+          <input class="finp" id="r-conf" type="password" placeholder="••••••••" required>
+          <div id="pmatch-fb" style="font-size:.75rem;color:#fca5a5;margin-top:.3rem;display:none"></div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="reg-btn">
+        <span class="btxt">إنشاء الحساب</span>
+      </button>
+      <p class="auth-switch">لديك حساب؟ <span onclick="atab('login', document.querySelectorAll('.atab')[0])">سجّل الدخول</span></p>
+    </form>
+
+    <a href="index.html" class="auth-back">← العودة للبوابة الرئيسية</a>
+  </div>
+</div>
+</div>
+
+<!-- ════ DASHBOARD ════ -->
+<div id="dash-page" style="display:none;width:100%">
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-head">
+      <div class="sb-av">👤</div>
+      <div class="sb-name" id="sb-name">...</div>
+      <div class="sb-dist"><span>📍</span><span id="sb-dist"></span></div>
+    </div>
+    <nav class="sb-nav">
+      <button class="sb-item on" onclick="gv('overview')" id="ni-overview"><span class="ic">🏠</span>نظرة عامة</button>
+      <button class="sb-item"    onclick="gv('gas')"      id="ni-gas">     <span class="ic">🔥</span>طلب الغاز</button>
+      <button class="sb-item"    onclick="gv('complaint')" id="ni-complaint"><span class="ic">📣</span>إرسال شكوى</button>
+      <button class="sb-item"    onclick="gv('track')"    id="ni-track">   <span class="ic">📋</span>طلباتي وشكاواي</button>
+      <button class="sb-item"    onclick="gv('profile')"  id="ni-profile"> <span class="ic">⚙️</span>الحساب</button>
+    </nav>
+    <div class="sb-foot">
+      <a href="index.html" class="btn btn-ghost btn-sm" style="justify-content:center">🏠 الرئيسية</a>
+      <button class="btn btn-danger btn-sm" onclick="doLogout()" style="justify-content:center">🚪 تسجيل الخروج</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:.75rem">
+        <button class="mob-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <span class="topbar-title" id="tb-title"><span>🏠</span> نظرة عامة</span>
+      </div>
+      <a href="index.html" class="topbar-back">← بوابة سقبا</a>
+    </div>
+
+    <div class="content">
+
+      <!-- ── OVERVIEW ── -->
+      <div id="v-overview" class="vp">
+        <h2 style="font-size:1.4rem;font-weight:800;margin-bottom:.3rem">مرحباً، <span id="wname" style="color:var(--goldb)">...</span> 👋</h2>
+        <p style="color:var(--tx3);font-size:.85rem;margin-bottom:1.8rem">إليك ملخص حساباتك وآخر طلباتك</p>
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-ico si-gold">🔥</div><div><div class="stat-n" id="ov-gn">—</div><div class="stat-l">طلبات الغاز</div></div></div>
+          <div class="stat-card"><div class="stat-ico si-teal">📣</div><div><div class="stat-n" id="ov-cn">—</div><div class="stat-l">الشكاوى المقدمة</div></div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div class="panel-icon pi-gold">🔥</div><span class="panel-title">آخر طلبات الغاز</span></div>
+          <div class="panel-body"><div id="ov-glist"><div class="empty"><div class="empty-ico">🔥</div><div class="empty-title">لا توجد طلبات بعد</div><div style="margin-top:1rem"><button class="btn btn-primary btn-sm" onclick="gv('gas')">سجّل طلب الغاز</button></div></div></div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div class="panel-icon pi-teal">📣</div><span class="panel-title">آخر الشكاوى</span></div>
+          <div class="panel-body"><div id="ov-clist"><div class="empty"><div class="empty-ico">📣</div><div class="empty-title">لا توجد شكاوى بعد</div><div style="margin-top:1rem"><button class="btn btn-primary btn-sm" onclick="gv('complaint')">أرسل شكوى</button></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- ── GAS ── -->
+      <div id="v-gas" class="vp" style="display:none">
+        <div class="panel">
+          <div class="panel-head"><div class="panel-icon pi-gold">🔥</div><span class="panel-title">تسجيل طلب اسطوانة غاز</span></div>
+          <div class="panel-body">
+            <div id="gas-ok" style="display:none" class="queue-card">
+              <div class="queue-lbl">رقم دورك في الطابور</div>
+              <div class="queue-num" id="q-num">—</div>
+              <div class="queue-sub">سيتم إشعارك عند اقتراب دورك<br>احتفظ بهذا الرقم معك</div>
+              <div style="margin-top:2rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+                <button class="btn btn-ghost" onclick="resetGas()">تسجيل طلب جديد</button>
+                <button class="btn btn-ghost" onclick="gv('track')">متابعة الطلبات</button>
+              </div>
+            </div>
+            <form id="gas-form" onsubmit="doGas(event)">
+              <div class="notice"><span class="notice-ico">ℹ️</span>يُسمح بطلب واحد لكل عنوان خلال الدورة. سيتم إشعارك عند اقتراب دورك.</div>
+              <div class="fgrid">
+                <div class="fgrp"><label class="flbl">الاسم الكامل <span class="req">*</span></label><input class="finp" id="g-name" type="text" placeholder="اسمك الكامل" required></div>
+                <div class="fgrp"><label class="flbl">رقم الهاتف <span class="req">*</span></label><input class="finp" id="g-phone" type="tel" placeholder="09XXXXXXXX" required></div>
+              </div>
+              <div class="fgrid">
+                <div class="fgrp">
+                  <label class="flbl">الحي <span class="req">*</span></label>
+                  <select class="fsel" id="g-dist" required>
+                    <option value="">اختر الحي...</option>
+                    <option>حي الجامع</option><option>حي الميدان</option><option>حي البلد</option>
+                    <option>حي الشهداء</option><option>حي النور</option><option>حي الزهراء</option>
+                    <option>حي القدس</option><option>حي السلام</option><option>حي الوحدة</option>
+                    <option>حي الفرحة</option><option>حي الريحان</option><option>حي الياسمين</option>
+                  </select>
+                </div>
+                <div class="fgrp">
+                  <label class="flbl">عدد الاسطوانات <span class="req">*</span></label>
+                  <select class="fsel" id="g-cyl" required>
+                    <option value="">اختر العدد...</option>
+                    <option value="1">اسطوانة واحدة</option>
+                    <option value="2">اسطوانتان</option>
+                    <option value="3">٣ اسطوانات</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" id="gas-btn"><span class="btxt">🔥 تسجيل الطلب وعرض الدور</span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── COMPLAINT ── -->
+      <div id="v-complaint" class="vp" style="display:none">
+        <div class="panel">
+          <div class="panel-head"><div class="panel-icon pi-teal">📣</div><span class="panel-title">إرسال شكوى لإدارة المدينة</span></div>
+          <div class="panel-body">
+            <form id="comp-form" onsubmit="doComp(event)">
+              <div class="fgrp">
+                <label class="flbl">نوع المشكلة <span class="req">*</span></label>
+                <select class="fsel" id="c-type" required>
+                  <option value="">اختر نوع المشكلة...</option>
+                  <option>مشكلة في الطرق والأرصفة</option>
+                  <option>مشكلة في شبكة المياه</option>
+                  <option>مشكلة في الصرف الصحي</option>
+                  <option>مشكلة في الإضاءة العامة</option>
+                  <option>مشكلة في النظافة والنفايات</option>
+                  <option>مشكلة في شبكة الكهرباء</option>
+                  <option>شكوى على محل تجاري</option>
+                  <option>اقتراح أو ملاحظة</option>
+                  <option>أخرى</option>
+                </select>
+              </div>
+              <div class="fgrp">
+                <label class="flbl">وصف المشكلة <span class="req">*</span></label>
+                <textarea class="ftxt" id="c-desc" placeholder="اشرح المشكلة بالتفصيل: الموقع، وقت الحدوث، والتأثير على السكان..." required minlength="20" style="min-height:150px"></textarea>
+                <div class="fhint">20 حرفاً كحد أدنى</div>
+              </div>
+              <div class="fgrp">
+                <label class="flbl">صورة توضيحية (اختياري)</label>
+                <div class="upload-zone" id="uzone" onclick="document.getElementById('c-img').click()" ondragover="udrag(event)" ondrop="udrop(event)">
+                  <input type="file" id="c-img" accept="image/*" onchange="ufsel(event)">
+                  <div class="upload-ico">📷</div>
+                  <div class="upload-txt"><strong>انقر لتحميل صورة</strong> أو اسحب وأفلت<br><span style="font-size:.75rem;margin-top:.3rem;display:block">JPG, PNG — الحد الأقصى 5MB</span></div>
+                </div>
+                <div id="fprev" style="display:none" class="file-prev">
+                  <span>✅</span>
+                  <span class="file-prev-name" id="fname"></span>
+                  <button type="button" class="file-rm" onclick="uclr()">إزالة</button>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" id="comp-btn"><span class="btxt">📣 إرسال الشكوى</span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TRACK ── -->
+      <div id="v-track" class="vp" style="display:none">
+        <div class="tabs">
+          <button class="tabbtn on" onclick="ttab('tg',this)">🔥 طلبات الغاز</button>
+          <button class="tabbtn"    onclick="ttab('tc',this)">📣 الشكاوى</button>
+        </div>
+        <div id="tg" class="tc on"><div id="tg-list"><div class="empty"><div class="empty-ico">⏳</div><div class="empty-title">جاري التحميل...</div></div></div></div>
+        <div id="tc" class="tc"><div id="tc-list"><div class="empty"><div class="empty-ico">⏳</div><div class="empty-title">جاري التحميل...</div></div></div></div>
+      </div>
+
+      <!-- ── PROFILE ── -->
+      <div id="v-profile" class="vp" style="display:none">
+        <div class="panel">
+          <div class="panel-head"><div class="panel-icon pi-gold">⚙️</div><span class="panel-title">معلومات الحساب</span></div>
+          <div class="panel-body">
+            <div class="prof-row"><span class="prof-key">الاسم</span><span class="prof-val" id="p-name">—</span></div>
+            <div class="prof-row"><span class="prof-key">البريد الإلكتروني</span><span class="prof-val" id="p-email" style="direction:ltr">—</span></div>
+            <div class="prof-row"><span class="prof-key">رقم الهاتف</span><span class="prof-val" id="p-phone" style="direction:ltr">—</span></div>
+            <div class="prof-row"><span class="prof-key">الحي</span><span class="prof-val" id="p-dist">—</span></div>
+            <div class="prof-row"><span class="prof-key">تاريخ التسجيل</span><span class="prof-val" id="p-date">—</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/utils.js"></script>
+<script type="module" src="js/firebase-config.js"></script>
+<script>
+/* Fallbacks */
+if(typeof FirestoreService==='undefined')window.FirestoreService={createGasRequest:async()=>{throw'no-firebase'},getUserGasRequests:async()=>[],getUserComplaints:async()=>[],createComplaint:async()=>{throw'no-firebase'},getUser:async()=>null,createUser:async()=>{}};
+if(typeof AuthService==='undefined')window.AuthService={login:async()=>{throw{code:'auth/no-config'}},register:async()=>{throw{code:'auth/no-config'}},logout:async()=>{}};
+if(typeof formatDate==='undefined')window.formatDate=ts=>{if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('ar-SY',{year:'numeric',month:'long',day:'numeric'})};
+if(typeof statusMap==='undefined')window.statusMap={pending:{label:'قيد الانتظار',cls:'b-pending'},approved:{label:'مقبول',cls:'b-approved'},delivered:{label:'تم التسليم',cls:'b-delivered'},rejected:{label:'مرفوض',cls:'b-rejected'},open:{label:'مفتوحة',cls:'b-pending'},in_progress:{label:'قيد المعالجة',cls:'b-approved'},resolved:{label:'محلولة',cls:'b-delivered'},closed:{label:'مغلقة',cls:'b-rejected'}};
+
+let uid=null,udata=null,selFile=null;
+
+/* Toast */
+function toast(msg,ok=true){
+  // استخدام showToast من utils.js إن كانت موجودة، وإلا الوظيفة المحلية
+  if(typeof showToast!=='undefined'){showToast(msg,ok);return}
+  const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(ok?'toast-ok':'toast-err');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500)
+}
+
+/* Auth tab switch */
+function atab(id,btn){
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.aform').forEach(f=>f.classList.remove('on'));
+  document.getElementById('f-'+id).classList.add('on');
+  // تفعيل الـ validators عند فتح نموذج التسجيل
+  if(id==='reg') initRegValidators();
+}
+
+let regValidatorsInit = false;
+function initRegValidators(){
+  if(regValidatorsInit||typeof Validator==='undefined') return;
+  regValidatorsInit = true;
+  const R = Validator.rules;
+  Validator.bind(document.getElementById('r-name'),  [R.required, R.noXss]);
+  Validator.bind(document.getElementById('r-phone'), [R.required, R.phone]);
+  Validator.bind(document.getElementById('r-email'), [R.required, R.email]);
+  Validator.bind(document.getElementById('r-pass'),  [R.required, R.password]);
+  Validator.bindPasswordMatch(
+    document.getElementById('r-pass'),
+    document.getElementById('r-conf'),
+    'pmatch-fb'
+  );
+  Validator.bindPasswordStrength(
+    document.getElementById('r-pass'),
+    'pstrength'
+  );
+}
+
+/* Auth error */
+function aerr(c){return{['auth/user-not-found']:'لا يوجد حساب بهذا البريد',['auth/wrong-password']:'كلمة المرور غير صحيحة',['auth/email-already-in-use']:'البريد مستخدم مسبقاً',['auth/weak-password']:'كلمة المرور ضعيفة (6 أحرف على الأقل)',['auth/invalid-email']:'البريد الإلكتروني غير صالح',['auth/too-many-requests']:'تجاوزت عدد المحاولات، حاول لاحقاً'}[c]||'حدث خطأ، حاول مرة أخرى'}
+
+/* Login */
+async function doLogin(e){
+  e.preventDefault();
+  const btn=document.getElementById('login-btn');
+  btn.disabled=true;btn.classList.add('btn-loading');
+  try{await AuthService.login(document.getElementById('l-email').value,document.getElementById('l-pass').value)}
+  catch(er){toast(aerr(er.code),false);btn.disabled=false;btn.classList.remove('btn-loading')}
+}
+
+/* Register */
+async function doRegister(e){
+  e.preventDefault();
+  if(document.getElementById('r-pass').value!==document.getElementById('r-conf').value){
+    toast('كلمتا المرور غير متطابقتان',false);
+    document.getElementById('r-conf').classList.add('finp-err');
+    return;
+  }
+  if(typeof Validator!=='undefined'){
+    const noXss = Validator.rules.noXss;
+    const fields=['r-name','r-phone'];
+    for(const id of fields){
+      const el=document.getElementById(id);
+      if(noXss(el.value)!==true){toast('يحتوي النص على رموز غير مسموح بها',false);el.classList.add('finp-err');return}
+    }
+  }
+  const btn=document.getElementById('reg-btn');
+  btn.disabled=true;btn.classList.add('btn-loading');
+  try{await AuthService.register(document.getElementById('r-email').value,document.getElementById('r-pass').value,{name:document.getElementById('r-name').value,phone:document.getElementById('r-phone').value,district:document.getElementById('r-dist').value});toast('تم إنشاء الحساب بنجاح! 🎉')}
+  catch(er){toast(aerr(er.code),false);btn.disabled=false;btn.classList.remove('btn-loading')}
+}
+
+async function doLogout(){await AuthService.logout()}
+
+/* Auth state */
+document.addEventListener('userLoggedIn',async e=>{
+  const user=e.detail;uid=user.uid;
+  document.getElementById('auth-page').style.display='none';
+  document.getElementById('dash-page').style.display='';
+  udata=await FirestoreService.getUser(uid)||{};
+  const nm=udata.name||user.email;
+  document.getElementById('sb-name').textContent=nm;
+  document.getElementById('sb-dist').textContent=udata.district||'';
+  document.getElementById('wname').textContent=nm;
+  document.getElementById('p-name').textContent=udata.name||'—';
+  document.getElementById('p-email').textContent=udata.email||user.email;
+  document.getElementById('p-phone').textContent=udata.phone||'—';
+  document.getElementById('p-dist').textContent=udata.district||'—';
+  document.getElementById('p-date').textContent=formatDate(udata.createdAt);
+  if(udata.name) document.getElementById('g-name').value=udata.name;
+  if(udata.phone) document.getElementById('g-phone').value=udata.phone;
+  if(udata.district) document.getElementById('g-dist').value=udata.district;
+  loadOverview();
+  const h=location.hash.replace('#','');
+  if(['gas','complaint','track','profile'].includes(h))gv(h);
+});
+document.addEventListener('userLoggedOut',()=>{
+  document.getElementById('auth-page').style.display='';
+  document.getElementById('dash-page').style.display='none';
+});
+
+/* Navigation */
+function gv(v){
+  document.querySelectorAll('.vp').forEach(p=>p.style.display='none');
+  document.getElementById('v-'+v).style.display='block';
+  document.querySelectorAll('.sb-item').forEach(b=>b.classList.remove('on'));
+  const ni=document.getElementById('ni-'+v);if(ni)ni.classList.add('on');
+  const ts={overview:'🏠 نظرة عامة',gas:'🔥 طلب الغاز',complaint:'📣 إرسال شكوى',track:'📋 طلباتي وشكاواي',profile:'⚙️ الحساب'};
+  document.getElementById('tb-title').textContent=ts[v]||'';
+  if(v==='track')loadTrack();
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+/* Tab */
+function ttab(id,btn){
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+}
+
+/* Overview */
+async function loadOverview(){
+  if(!uid)return;
+  try{
+    const[g,c]=await Promise.all([FirestoreService.getUserGasRequests(uid),FirestoreService.getUserComplaints(uid)]);
+    document.getElementById('ov-gn').textContent=g.length;
+    document.getElementById('ov-cn').textContent=c.length;
+    if(g.length)document.getElementById('ov-glist').innerHTML='<div class="req-list">'+g.slice(0,3).map(r=>`<div class="req-item"><div class="req-num">#${esc(r.queueNumber)}</div><div class="req-info"><div class="req-title">${esc(r.cylinders)} اسطوانة — ${esc(r.district)}</div><div class="req-meta"><span>📅 ${formatDate(r.createdAt)}</span></div></div><span class="badge ${(statusMap[r.status]||{}).cls||''}">${esc((statusMap[r.status]||{}).label||r.status)}</span></div>`).join('')+'</div>';
+    if(c.length)document.getElementById('ov-clist').innerHTML='<div class="req-list">'+c.slice(0,3).map(r=>`<div class="req-item"><div class="req-info"><div class="req-title">${esc(r.type)}</div><div class="req-meta"><span>📅 ${formatDate(r.createdAt)}</span></div></div><span class="badge ${(statusMap[r.status]||{}).cls||''}">${esc((statusMap[r.status]||{}).label||r.status)}</span></div>`).join('')+'</div>';
+  }catch(e){console.error(e)}
+}
+
+/* Track */
+async function loadTrack(){
+  if(!uid)return;
+  const gl=document.getElementById('tg-list'),cl=document.getElementById('tc-list');
+  gl.innerHTML=empt('⏳','جاري التحميل...');cl.innerHTML=empt('⏳','جاري التحميل...');
+  try{const r=await FirestoreService.getUserGasRequests(uid);gl.innerHTML=r.length?'<div class="req-list">'+r.map(x=>`<div class="req-item"><div class="req-num">#${esc(x.queueNumber)}</div><div class="req-info"><div class="req-title">${esc(x.name)} — ${esc(x.cylinders)} اسطوانة</div><div class="req-meta"><span>🏘️ ${esc(x.district)}</span><span>📅 ${formatDate(x.createdAt)}</span></div></div><span class="badge ${(statusMap[x.status]||{}).cls||''}">${esc((statusMap[x.status]||{}).label||x.status)}</span></div>`).join('')+'</div>':empt('🔥','لا توجد طلبات غاز','<div style="margin-top:1rem"><button class="btn btn-primary btn-sm" onclick="gv(\'gas\')">سجّل طلباً</button></div>')}catch(e){gl.innerHTML=empt('⚠️','خطأ في التحميل')}
+  try{const c=await FirestoreService.getUserComplaints(uid);cl.innerHTML=c.length?'<div class="req-list">'+c.map(x=>`<div class="req-item">${x.image?`<img src="${esc(x.image)}" style="width:46px;height:46px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid var(--bd)">`:'<div style="width:46px;height:46px;border-radius:8px;background:var(--t9);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem">📣</div>'}<div class="req-info"><div class="req-title">${esc(x.type)}</div><div class="req-meta"><span>📅 ${formatDate(x.createdAt)}</span><span>${esc(x.description.substring(0,55))}...</span></div></div><span class="badge ${(statusMap[x.status]||{}).cls||''}">${esc((statusMap[x.status]||{}).label||x.status)}</span></div>`).join('')+'</div>':empt('📣','لا توجد شكاوى','<div style="margin-top:1rem"><button class="btn btn-primary btn-sm" onclick="gv(\'complaint\')">أرسل شكوى</button></div>')}catch(e){cl.innerHTML=empt('⚠️','خطأ في التحميل')}
+}
+
+function empt(ico,t,extra=''){return`<div class="empty"><div class="empty-ico">${ico}</div><div class="empty-title">${t}</div>${extra}</div>`}
+
+/* Gas request */
+async function doGas(e){
+  e.preventDefault();
+  const btn=document.getElementById('gas-btn');
+  btn.disabled=true;btn.classList.add('btn-loading');
+  try{
+    // createGasRequest يُرجع queueNumber ضمن بيانات الطلب
+    const {queueNumber} = await FirestoreService.createGasRequest({
+      userId:uid,
+      name:document.getElementById('g-name').value,
+      phone:document.getElementById('g-phone').value,
+      district:document.getElementById('g-dist').value,
+      cylinders:parseInt(document.getElementById('g-cyl').value)
+    });
+    document.getElementById('q-num').textContent = queueNumber;
+    document.getElementById('gas-form').style.display='none';
+    document.getElementById('gas-ok').style.display='block';
+    toast('تم تسجيل طلبك بنجاح! 🎉');
+  }catch(er){toast('حدث خطأ في تسجيل الطلب',false);btn.disabled=false;btn.classList.remove('btn-loading')}
+}
+function resetGas(){document.getElementById('gas-form').style.display='block';document.getElementById('gas-ok').style.display='none';document.getElementById('gas-form').reset();const b=document.getElementById('gas-btn');b.disabled=false;b.classList.remove('btn-loading')}
+
+/* Complaint */
+async function doComp(e){
+  e.preventDefault();
+  const btn=document.getElementById('comp-btn');
+  btn.disabled=true;btn.classList.add('btn-loading');
+  try{await FirestoreService.createComplaint({userId:uid,type:document.getElementById('c-type').value,description:document.getElementById('c-desc').value},selFile);toast('تم إرسال الشكوى بنجاح! ✅');document.getElementById('comp-form').reset();uclr()}
+  catch(er){toast('حدث خطأ في إرسال الشكوى',false)}
+  btn.disabled=false;btn.classList.remove('btn-loading');
+}
+
+/* File upload */
+function ufsel(e){const f=e.target.files[0];if(f)usetf(f)}
+function udrag(e){e.preventDefault();document.getElementById('uzone').classList.add('drag')}
+function udrop(e){e.preventDefault();document.getElementById('uzone').classList.remove('drag');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))usetf(f);else toast('يرجى تحميل صورة فقط',false)}
+function usetf(f){if(f.size>5*1024*1024){toast('حجم الصورة يتجاوز 5MB',false);return}selFile=f;document.getElementById('fname').textContent=f.name;document.getElementById('fprev').style.display='flex'}
+function uclr(){selFile=null;document.getElementById('c-img').value='';document.getElementById('fprev').style.display='none'}
+</script>
+</body>
+</html>

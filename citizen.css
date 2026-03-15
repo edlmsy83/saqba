@@ -1,0 +1,184 @@
+/* ═══════════════════════════════════════════════
+   بوابة سقبا — citizen.css
+   أنماط خاصة بصفحة المواطن فقط
+   ═══════════════════════════════════════════════ */
+
+/* ── AUTH SCREEN ───────────────── */
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 70% 55% at 30% 20%, rgba(0,212,216,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(201,162,39,.05) 0%, transparent 55%),
+    var(--ink);
+}
+
+.auth-ring   { position: absolute; border-radius: 50%; pointer-events: none; }
+.auth-ring-1 { top: -200px; right: -200px; width: 700px; height: 700px; border: 1px solid rgba(201,162,39,.05); }
+.auth-ring-2 { bottom: -150px; left: -150px; width: 500px; height: 500px; border: 1px solid rgba(0,212,216,.05); }
+
+.auth-card {
+  background: var(--glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glbr);
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 40px 80px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
+  animation: rise .7s var(--eoe) forwards;
+}
+
+.auth-head   { text-align: center; margin-bottom: 2rem; }
+.auth-logo   {
+  width: 68px; height: 68px;
+  background: linear-gradient(135deg, var(--gold), var(--goldd));
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 8px 30px var(--goldg);
+}
+.auth-title  { font-size: 1.5rem; font-weight: 800; margin-bottom: .35rem; color: var(--tx1); }
+.auth-sub    { font-size: .85rem; color: var(--tx3); }
+
+/* Auth tabs */
+.atabs { display: flex; background: rgba(255,255,255,.03); border: 1px solid var(--bd); border-radius: 10px; padding: .3rem; margin-bottom: 2rem; gap: .25rem; }
+.atab  { flex: 1; padding: .65rem; border: none; border-radius: 8px; background: transparent; color: var(--tx3); font-family: var(--fb); font-size: .88rem; font-weight: 600; cursor: pointer; transition: all .25s var(--eoe); }
+.atab.on { background: linear-gradient(135deg, var(--gold), var(--goldd)); color: #050e10; box-shadow: 0 3px 12px var(--goldg); }
+
+.aform    { display: none; }
+.aform.on { display: block; }
+
+.auth-switch { text-align: center; margin-top: 1rem; font-size: .82rem; color: var(--tx3); }
+.auth-switch span { color: var(--goldb); cursor: pointer; font-weight: 700; }
+.auth-switch span:hover { color: var(--gold); }
+.auth-back {
+  display: block; text-align: center; margin-top: 1.5rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--bd); font-size: .82rem; color: var(--tx3);
+  text-decoration: none; transition: color .2s;
+}
+.auth-back:hover { color: var(--t2); }
+
+/* ── CITIZEN SIDEBAR HEADER ─────── */
+.sb-av {
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, var(--gold), var(--goldd));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: .8rem;
+  box-shadow: 0 4px 16px var(--goldg);
+}
+.sb-name { font-size: .95rem; font-weight: 700; color: var(--tx1); }
+.sb-dist { font-size: .76rem; color: var(--tx3); margin-top: .15rem; display: flex; align-items: center; gap: .3rem; }
+
+/* ── QUEUE RESULT ──────────────── */
+.queue-card {
+  background: linear-gradient(135deg, rgba(201,162,39,.1), rgba(201,162,39,.04));
+  border: 1px solid rgba(201,162,39,.35);
+  border-radius: 18px;
+  padding: 3rem;
+  text-align: center;
+  margin-top: 1.5rem;
+  animation: fadein .5s ease;
+}
+.queue-lbl { font-size: .8rem; color: var(--tx3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .8rem; }
+.queue-num {
+  font-family: var(--fd);
+  font-size: 5.5rem;
+  font-weight: 700;
+  color: var(--goldb);
+  line-height: 1;
+  text-shadow: 0 0 60px rgba(201,162,39,.4);
+}
+.queue-sub { font-size: .85rem; color: var(--tx3); margin-top: 1rem; line-height: 1.7; }
+
+/* ── REQUEST LIST ──────────────── */
+.req-list { display: flex; flex-direction: column; gap: .9rem; }
+.req-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  background: rgba(255,255,255,.025);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  transition: border-color .25s;
+}
+.req-item:hover { border-color: var(--glbr); }
+.req-num   { font-size: 1.5rem; font-weight: 900; color: var(--goldb); min-width: 46px; text-align: center; flex-shrink: 0; }
+.req-info  { flex: 1; min-width: 0; }
+.req-title { font-size: .9rem; font-weight: 600; color: var(--tx1); margin-bottom: .25rem; }
+.req-meta  { font-size: .76rem; color: var(--tx3); display: flex; gap: .9rem; flex-wrap: wrap; }
+
+/* ── TABS ──────────────────────── */
+.tabs    { display: flex; background: rgba(255,255,255,.03); border: 1px solid var(--bd); border-radius: 10px; padding: .3rem; gap: .25rem; margin-bottom: 1.5rem; }
+.tabbtn  { flex: 1; padding: .6rem 1rem; border: none; border-radius: 7px; background: transparent; color: var(--tx3); font-family: var(--fb); font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .25s; }
+.tabbtn.on { background: linear-gradient(135deg, var(--gold), var(--goldd)); color: #050e10; box-shadow: 0 2px 10px var(--goldg); }
+.tc    { display: none; }
+.tc.on { display: block; }
+
+/* ── FILE UPLOAD ───────────────── */
+.upload-zone {
+  border: 2px dashed rgba(0,212,216,.2);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all .25s;
+  background: rgba(0,212,216,.02);
+}
+.upload-zone:hover, .upload-zone.drag { border-color: var(--cyan); background: rgba(0,212,216,.06); }
+.upload-zone input { display: none; }
+.upload-ico  { font-size: 2rem; margin-bottom: .5rem; color: var(--tx3); }
+.upload-txt  { font-size: .83rem; color: var(--tx3); }
+.upload-txt strong { color: var(--t2); }
+
+.file-prev      { display: flex; align-items: center; gap: .8rem; background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.2); border-radius: 8px; padding: .7rem 1rem; margin-top: .75rem; }
+.file-prev-name { font-size: .83rem; color: #34d399; flex: 1; }
+.file-rm        { background: none; border: none; color: #fca5a5; cursor: pointer; font-size: .78rem; font-family: var(--fb); transition: color .2s; }
+.file-rm:hover  { color: var(--red); }
+
+/* ── PROFILE ROWS ──────────────── */
+.prof-row { display: flex; justify-content: space-between; align-items: center; padding: .95rem 1.1rem; background: rgba(255,255,255,.025); border: 1px solid var(--bd); border-radius: 10px; margin-bottom: .6rem; }
+.prof-key { font-size: .82rem; color: var(--tx3); }
+.prof-val { font-size: .88rem; font-weight: 600; color: var(--tx1); }
+
+/* ── NOTICE BOX ────────────────── */
+.notice {
+  background: rgba(201,162,39,.06);
+  border: 1px solid rgba(201,162,39,.18);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  font-size: .82rem;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 1.4rem;
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+}
+.notice-ico { font-size: 1rem; flex-shrink: 0; margin-top: .1rem; }
+
+/* ── PAGE TITLES ───────────────── */
+.pg-title { font-size: 1.4rem; font-weight: 800; margin-bottom: .3rem; }
+.pg-sub   { color: var(--tx3); font-size: .83rem; margin-bottom: 2rem; }
+
+/* Content width for citizen */
+.content { max-width: 880px; }
+
+/* View panels */
+.vp        { display: none; animation: fadein .3s ease; }
+.vp.on     { display: block; }

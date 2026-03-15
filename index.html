@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>بوابة سقبا الرقمية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="cur"></div><div id="ring"></div>
+<canvas id="pc"></canvas>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nb">
+    <svg class="ne" viewBox="0 0 42 42" fill="none">
+      <polygon points="21,3 24.5,14.5 36,14.5 26.5,21.5 30,33 21,26 12,33 15.5,21.5 6,14.5 17.5,14.5" fill="none" stroke="#c9a227" stroke-width="1.2"/>
+      <circle cx="21" cy="21" r="5" fill="none" stroke="#c9a227" stroke-width="1"/>
+      <circle cx="21" cy="21" r="2" fill="#c9a227" opacity="0.7"/>
+    </svg>
+    <div class="nbt">
+      <span class="nba">بوابة سقبا</span>
+      <span class="nbe">Saqba Digital Portal</span>
+    </div>
+  </a>
+  <ul class="nl">
+    <li><a href="#svc">الخدمات</a></li>
+    <li><a href="#news">الأخبار</a></li>
+    <li><a href="#gal">المعرض</a></li>
+    <li><a href="#about">عن المدينة</a></li>
+  </ul>
+  <div class="nc">
+    <a href="citizen.html" class="bg">حساب المواطن</a>
+    <a href="admin.html" class="bgold">الإدارة</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hbord"></div>
+  <div class="geo">
+    <svg width="900" height="900" viewBox="0 0 900 900" fill="none">
+      <circle cx="450" cy="450" r="420" stroke="#00d4d8" stroke-width="0.5"/>
+      <circle cx="450" cy="450" r="320" stroke="#c9a227" stroke-width="0.5"/>
+      <circle cx="450" cy="450" r="200" stroke="#c9a227" stroke-width="0.5"/>
+      <polygon points="450,30 468,160 490,38 492,168 528,50 514,178 562,68 532,192 598,94 551,208 638,128 571,226 676,168 590,254 710,216 604,278 736,272 614,302 750,335 616,330 750,405 614,358 745,480 610,386 726,558 598,412 697,630 578,436 656,692 550,456 596,742 515,475 526,776 474,488 447,782 426,488 368,776 378,474 302,742 302,456 244,692 322,436 204,630 302,412 174,558 290,386 155,480 296,358 150,405 284,330 150,335 286,302 164,272 296,278 190,216 304,254 224,168 338,226 202,128 335,208 262,94 318,192 282,68 346,178 322,50 358,168 360,38 408,168 430,30" stroke="#c9a227" stroke-width="0.4" fill="none"/>
+      <line x1="450" y1="30"  x2="450" y2="870" stroke="#00d4d8" stroke-width="0.3"/>
+      <line x1="30"  y1="450" x2="870" y2="450" stroke="#00d4d8" stroke-width="0.3"/>
+      <line x1="120" y1="120" x2="780" y2="780" stroke="#c9a227" stroke-width="0.25"/>
+      <line x1="780" y1="120" x2="120" y2="780" stroke="#c9a227" stroke-width="0.25"/>
+    </svg>
+  </div>
+
+  <div class="hi">
+    <div class="htag"><span class="hdot"></span>مدينة سقبا — ريف دمشق — سوريا</div>
+    <h1 class="ht">البوابة الرقمية<span class="city">لمدينة سقبا</span></h1>
+    <p class="hs">منصة حديثة تقدم الخدمات الأساسية لسكان مدينة سقبا بشكل رقمي متكامل. سجّل دورك في الغاز، أرسل شكواك، وتابع كل طلباتك من أي مكان.</p>
+    <div class="hbtns">
+      <a href="citizen.html" class="bp"><span>🚀</span><span>ابدأ الآن</span></a>
+      <a href="#svc" class="bo"><span>اكتشف الخدمات</span><span>↓</span></a>
+    </div>
+    <div class="hst">
+      <div><span class="hsn" id="su">0</span><span class="hsl">مواطن مسجل</span></div>
+      <div><span class="hsn" id="sr">0</span><span class="hsl">طلب غاز</span></div>
+      <div><span class="hsn" id="sc2">0</span><span class="hsl">شكوى معالجة</span></div>
+      <div><span class="hsn">12</span><span class="hsl">حي سكني</span></div>
+    </div>
+  </div>
+
+  <!-- City Skyline -->
+  <div class="sky-w">
+    <div class="sw"></div>
+    <svg class="sky-svg" viewBox="0 0 1400 260" fill="none" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0b2d34" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="#041215"/>
+        </linearGradient>
+        <linearGradient id="dg2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c9a227"/>
+          <stop offset="100%" stop-color="#8a6d18"/>
+        </linearGradient>
+        <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#041215" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#041215"/>
+        </linearGradient>
+        <filter id="gf"><feGaussianBlur stdDeviation="3"/></filter>
+      </defs>
+      <path d="M0,185 L70,135 L140,160 L220,110 L310,145 L400,105 L480,128 L560,98 L650,120 L740,92 L830,115 L920,95 L1010,118 L1110,90 L1210,110 L1310,94 L1400,108 L1400,260 L0,260Z" fill="rgba(11,45,52,0.45)"/>
+      <rect x="0" y="202" width="58" height="58" fill="url(#bg)"/>
+      <rect x="8" y="178" width="40" height="27" fill="url(#bg)"/>
+      <rect x="66" y="188" width="48" height="72" fill="url(#bg)"/>
+      <g class="dg">
+        <rect x="130" y="162" width="88" height="98" fill="url(#bg)"/>
+        <ellipse cx="174" cy="162" rx="44" ry="21" fill="url(#dg2)" opacity="0.85"/>
+        <ellipse cx="174" cy="160" rx="27" ry="12" fill="url(#dg2)" opacity="0.6"/>
+        <rect x="122" y="92" width="11" height="71" fill="url(#bg)"/>
+        <polygon points="128,90 122,98 134,98" fill="url(#dg2)"/>
+        <circle cx="128" cy="88" r="3.5" fill="#c9a227" filter="url(#gf)"/>
+        <rect x="236" y="102" width="11" height="61" fill="url(#bg)"/>
+        <polygon points="242,100 236,108 248,108" fill="url(#dg2)"/>
+        <circle cx="242" cy="98" r="3.5" fill="#c9a227" filter="url(#gf)"/>
+      </g>
+      <rect x="232" y="172" width="53" height="88" fill="url(#bg)"/>
+      <rect x="292" y="157" width="68" height="103" fill="url(#bg)"/>
+      <rect x="368" y="182" width="46" height="78" fill="url(#bg)"/>
+      <rect x="422" y="170" width="53" height="90" fill="url(#bg)"/>
+      <rect x="483" y="177" width="60" height="83" fill="url(#bg)"/>
+      <rect x="552" y="102" width="73" height="158" fill="url(#bg)"/>
+      <rect x="568" y="88"  width="40" height="18"  fill="url(#bg)"/>
+      <rect x="575" y="73"  width="26" height="17"  fill="url(#bg)"/>
+      <rect x="582" y="60"  width="12" height="15"  fill="url(#bg)"/>
+      <circle cx="588" cy="58" r="4" fill="url(#dg2)" filter="url(#gf)"/>
+      <g class="dg" style="animation-delay:1.5s">
+        <rect x="640" y="157" width="93" height="103" fill="url(#bg)"/>
+        <ellipse cx="686" cy="157" rx="46" ry="21" fill="url(#dg2)" opacity="0.8"/>
+        <ellipse cx="686" cy="155" rx="29" ry="13" fill="url(#dg2)" opacity="0.55"/>
+        <rect x="632" y="90"  width="10" height="68" fill="url(#bg)"/>
+        <polygon points="637,88 632,96 642,96" fill="url(#dg2)"/>
+        <circle cx="637" cy="86" r="3.5" fill="#c9a227" filter="url(#gf)"/>
+        <rect x="742" y="97"  width="10" height="62" fill="url(#bg)"/>
+        <polygon points="747,95 742,103 752,103" fill="url(#dg2)"/>
+        <circle cx="747" cy="93" r="3.5" fill="#c9a227" filter="url(#gf)"/>
+      </g>
+      <rect x="742" y="167" width="56" height="93" fill="url(#bg)"/>
+      <rect x="806" y="177" width="48" height="83" fill="url(#bg)"/>
+      <rect x="862" y="170" width="63" height="90" fill="url(#bg)"/>
+      <rect x="933" y="157" width="70" height="103" fill="url(#bg)"/>
+      <g class="dg" style="animation-delay:2.8s">
+        <rect x="1018" y="162" width="83" height="98" fill="url(#bg)"/>
+        <ellipse cx="1059" cy="162" rx="41" ry="19" fill="url(#dg2)" opacity="0.75"/>
+        <rect x="1011" y="97"  width="9"  height="66" fill="url(#bg)"/>
+        <polygon points="1016,95 1011,103 1021,103" fill="url(#dg2)"/>
+        <circle cx="1016" cy="93" r="3" fill="#c9a227" filter="url(#gf)"/>
+        <rect x="1109" y="104" width="9"  height="60" fill="url(#bg)"/>
+        <polygon points="1114,102 1109,110 1119,110" fill="url(#dg2)"/>
+        <circle cx="1114" cy="100" r="3" fill="#c9a227" filter="url(#gf)"/>
+      </g>
+      <rect x="1112" y="180" width="50" height="80" fill="url(#bg)"/>
+      <rect x="1170" y="172" width="58" height="88" fill="url(#bg)"/>
+      <rect x="1236" y="187" width="48" height="73" fill="url(#bg)"/>
+      <rect x="1292" y="177" width="53" height="83" fill="url(#bg)"/>
+      <rect x="1354" y="193" width="46" height="67" fill="url(#bg)"/>
+      <g class="wb" fill="rgba(201,162,39,0.5)">
+        <rect x="143" y="177" width="7" height="9" rx="1"/>
+        <rect x="157" y="177" width="7" height="9" rx="1"/>
+        <rect x="171" y="177" width="7" height="9" rx="1"/>
+        <rect x="185" y="177" width="7" height="9" rx="1"/>
+        <rect x="143" y="196" width="7" height="9" rx="1"/>
+        <rect x="171" y="196" width="7" height="9" rx="1"/>
+      </g>
+      <g class="wb" fill="rgba(0,212,216,0.4)">
+        <rect x="302" y="170" width="8" height="10" rx="1"/>
+        <rect x="316" y="170" width="8" height="10" rx="1"/>
+        <rect x="330" y="170" width="8" height="10" rx="1"/>
+        <rect x="302" y="188" width="8" height="10" rx="1"/>
+        <rect x="330" y="188" width="8" height="10" rx="1"/>
+        <rect x="302" y="206" width="8" height="10" rx="1"/>
+        <rect x="330" y="206" width="8" height="10" rx="1"/>
+      </g>
+      <g class="wb" fill="rgba(201,162,39,0.45)">
+        <rect x="562" y="114" width="8" height="10" rx="1"/>
+        <rect x="576" y="114" width="8" height="10" rx="1"/>
+        <rect x="590" y="114" width="8" height="10" rx="1"/>
+        <rect x="604" y="114" width="8" height="10" rx="1"/>
+        <rect x="562" y="132" width="8" height="10" rx="1"/>
+        <rect x="604" y="132" width="8" height="10" rx="1"/>
+      </g>
+      <g class="wb" fill="rgba(0,212,216,0.35)">
+        <rect x="653" y="172" width="7" height="9" rx="1"/>
+        <rect x="667" y="172" width="7" height="9" rx="1"/>
+        <rect x="681" y="172" width="7" height="9" rx="1"/>
+        <rect x="695" y="172" width="7" height="9" rx="1"/>
+        <rect x="709" y="172" width="7" height="9" rx="1"/>
+        <rect x="653" y="190" width="7" height="9" rx="1"/>
+        <rect x="695" y="190" width="7" height="9" rx="1"/>
+      </g>
+      <rect x="0" y="0" width="1400" height="260" fill="url(#fg)"/>
+    </svg>
+    <div class="fog"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="svc-sec" id="svc">
+  <div class="svc-con">
+    <div class="rev">
+      <div class="sl">الخدمات الرقمية</div>
+      <h2 class="st">كل ما تحتاجه <span class="hl">في مكان واحد</span></h2>
+      <div class="sdiv"><span class="sg"></span></div>
+    </div>
+    <div class="svc-grid">
+      <a href="citizen.html#gas" class="sc-card rev">
+        <div class="sci g">🔥</div>
+        <div class="scn">دور الغاز</div>
+        <div class="scd">سجّل طلبك لاسطوانة الغاز وتابع رقم دورك مباشرة من منزلك دون انتظار.</div>
+        <div class="sca">ابدأ الآن ←</div>
+      </a>
+      <a href="citizen.html#complaint" class="sc-card rev" style="transition-delay:.1s">
+        <div class="sci t">📣</div>
+        <div class="scn">تقديم شكوى</div>
+        <div class="scd">أرسل شكواك لإدارة المدينة مع صورة توضيحية وتتبّع حالة معالجتها أولاً بأول.</div>
+        <div class="sca">أرسل الآن ←</div>
+      </a>
+      <a href="#news" class="sc-card rev" style="transition-delay:.2s">
+        <div class="sci s">📰</div>
+        <div class="scn">أخبار المدينة</div>
+        <div class="scd">تابع آخر الأخبار والإعلانات الرسمية الصادرة عن إدارة مدينة سقبا فور نشرها.</div>
+        <div class="sca">تابع ←</div>
+      </a>
+      <a href="#gal" class="sc-card rev" style="transition-delay:.3s">
+        <div class="sci gr">🖼️</div>
+        <div class="scn">معرض الصور</div>
+        <div class="scd">استعرض صور مدينة سقبا ومعالمها الأثرية والفعاليات التي تشهدها أحياؤها.</div>
+        <div class="sca">استعرض ←</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="ns" id="news">
+  <div class="nc2">
+    <div class="ngh rev">
+      <div>
+        <div class="sl">آخر المستجدات</div>
+        <h2 class="st">أخبار وإعلانات <span class="hl">سقبا</span></h2>
+        <div class="sdiv"><span class="sg"></span></div>
+      </div>
+    </div>
+    <div class="ng rev" id="news-con">
+      <div class="ncard feat"><div class="ske" style="width:100%;aspect-ratio:4/3"></div><div class="nb2"><div class="ske" style="height:11px;width:80px;margin-bottom:12px"></div><div class="ske" style="height:18px;margin-bottom:8px"></div><div class="ske" style="height:12px;width:80%"></div></div></div>
+      <div class="ncard"><div class="ske" style="width:100%;aspect-ratio:16/9"></div><div class="nb2"><div class="ske" style="height:11px;width:60px;margin-bottom:10px"></div><div class="ske" style="height:16px;margin-bottom:7px"></div><div class="ske" style="height:11px"></div></div></div>
+      <div class="ncard"><div class="ske" style="width:100%;aspect-ratio:16/9"></div><div class="nb2"><div class="ske" style="height:11px;width:60px;margin-bottom:10px"></div><div class="ske" style="height:16px;margin-bottom:7px"></div><div class="ske" style="height:11px"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gs" id="gal">
+  <div class="gc">
+    <div class="rev">
+      <div class="sl">الذاكرة البصرية</div>
+      <h2 class="st">معرض صور <span class="hl">مدينة سقبا</span></h2>
+      <div class="sdiv"><span class="sg"></span></div>
+    </div>
+    <div class="gm rev" id="gal-con">
+      <div class="gi"><div class="ske" style="width:100%;height:100%"></div></div>
+      <div class="gi"><div class="ske" style="width:100%;height:100%"></div></div>
+      <div class="gi"><div class="ske" style="width:100%;height:100%"></div></div>
+      <div class="gi"><div class="ske" style="width:100%;height:100%"></div></div>
+      <div class="gi"><div class="ske" style="width:100%;height:100%"></div></div>
+      <div class="gi"><div class="ske" style="width:100%;height:100%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="as" id="about">
+  <div class="ac">
+    <div class="at rev">
+      <div class="sl">عن المدينة</div>
+      <h2 class="st">سقبا <span class="hl">مدينة الأصالة</span></h2>
+      <div class="sdiv" style="justify-content:flex-start"><span class="sg"></span></div>
+      <p>مدينة سقبا إحدى مدن محافظة ريف دمشق، تقع في قلب الغوطة الشرقية شرق العاصمة دمشق. تمتلك المدينة تراثاً حضارياً وتاريخياً عريقاً يمتد عبر العصور.</p>
+      <p>تتميز بموقعها الجغرافي المميز ونسيجها الاجتماعي المتماسك وروح التعاون بين سكانها الذين يحافظون على هويتهم العربية الأصيلة.</p>
+      <div class="af">
+        <div class="fc"><div class="fci">🏙️</div><span class="fcv">~70,000</span><span class="fcl">ساكن</span></div>
+        <div class="fc"><div class="fci">📍</div><span class="fcv">ريف دمشق</span><span class="fcl">المحافظة</span></div>
+        <div class="fc"><div class="fci">🕌</div><span class="fcv">12+</span><span class="fcl">حيًا سكنيًا</span></div>
+        <div class="fc"><div class="fci">🌿</div><span class="fcv">الغوطة</span><span class="fcl">الموقع</span></div>
+      </div>
+    </div>
+    <div class="rev" style="transition-delay:.2s">
+      <div class="mc">
+        <div class="mcan">
+          <svg width="100%" height="100%" viewBox="0 0 560 320" fill="none">
+            <rect width="560" height="320" fill="#082228"/>
+            <line x1="0" y1="64"  x2="560" y2="64"  stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <line x1="0" y1="128" x2="560" y2="128" stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <line x1="0" y1="192" x2="560" y2="192" stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <line x1="0" y1="256" x2="560" y2="256" stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <line x1="112" y1="0" x2="112" y2="320" stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <line x1="224" y1="0" x2="224" y2="320" stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <line x1="336" y1="0" x2="336" y2="320" stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <line x1="448" y1="0" x2="448" y2="320" stroke="rgba(0,212,216,.05)" stroke-width="1"/>
+            <path d="M0,160 Q100,145 200,160 Q300,175 400,158 Q480,145 560,152" stroke="rgba(0,212,216,.18)" stroke-width="3" fill="none"/>
+            <path d="M0,200 Q150,185 280,195 Q400,205 560,190" stroke="rgba(0,212,216,.1)" stroke-width="2" fill="none"/>
+            <path d="M280,0 Q272,100 280,160 Q288,220 280,320" stroke="rgba(0,212,216,.12)" stroke-width="2.5" fill="none"/>
+            <circle cx="280" cy="160" r="60" fill="rgba(0,212,216,.05)" stroke="rgba(0,212,216,.12)" stroke-width="1" stroke-dasharray="4,4"/>
+            <circle cx="280" cy="160" r="90" fill="rgba(201,162,39,.03)" stroke="rgba(201,162,39,.08)" stroke-width="1"/>
+            <circle cx="280" cy="160" r="14" fill="rgba(201,162,39,.15)" stroke="#c9a227" stroke-width="1.5"/>
+            <circle cx="280" cy="160" r="6" fill="#c9a227"/>
+            <circle cx="280" cy="160" r="22" fill="none" stroke="rgba(201,162,39,.3)" stroke-width="1" stroke-dasharray="3,3"><animateTransform attributeName="transform" type="rotate" values="0 280 160;360 280 160" dur="20s" repeatCount="indefinite"/></circle>
+            <text x="280" y="196" text-anchor="middle" fill="#c9a227" font-size="13" font-family="Tajawal,sans-serif" font-weight="700">سقبا</text>
+            <text x="120" y="140" fill="rgba(0,212,216,.35)" font-size="9" font-family="Tajawal,sans-serif">دوما</text>
+            <text x="420" y="140" fill="rgba(0,212,216,.35)" font-size="9" font-family="Tajawal,sans-serif">حرستا</text>
+            <text x="190" y="250" fill="rgba(0,212,216,.3)" font-size="9" font-family="Tajawal,sans-serif">جوبر</text>
+            <text x="360" y="230" fill="rgba(0,212,216,.3)" font-size="9" font-family="Tajawal,sans-serif">عربين</text>
+            <g transform="translate(504,36)">
+              <circle r="18" fill="rgba(8,34,40,.8)" stroke="rgba(0,212,216,.2)" stroke-width="1"/>
+              <text y="-5" text-anchor="middle" fill="rgba(0,212,216,.7)" font-size="8" font-family="Tajawal">ش</text>
+              <polygon points="0,-14 2,-2 0,0 -2,-2" fill="rgba(201,162,39,.8)"/>
+              <polygon points="0,14 2,2 0,0 -2,2" fill="rgba(0,212,216,.4)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="mi">
+          <div class="mit"><h4>موقع مدينة سقبا الجغرافي</h4><p>الغوطة الشرقية — ريف دمشق</p></div>
+          <span class="mb">📍 سوريا</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <div class="fg">
+    <div class="fb">
+      <a href="index.html" class="nb" style="display:inline-flex">
+        <svg class="ne" viewBox="0 0 42 42" fill="none">
+          <polygon points="21,3 24.5,14.5 36,14.5 26.5,21.5 30,33 21,26 12,33 15.5,21.5 6,14.5 17.5,14.5" fill="none" stroke="#c9a227" stroke-width="1.2"/>
+          <circle cx="21" cy="21" r="5" fill="none" stroke="#c9a227" stroke-width="1"/>
+          <circle cx="21" cy="21" r="2" fill="#c9a227" opacity="0.7"/>
+        </svg>
+        <div class="nbt"><span class="nba">بوابة سقبا الرقمية</span><span class="nbe">Saqba Digital Portal</span></div>
+      </a>
+      <p>منصة رقمية متكاملة تخدم سكان مدينة سقبا وتوفر وصولاً سهلاً لجميع الخدمات الأساسية بضغطة زر.</p>
+    </div>
+    <div class="fco"><h5>الخدمات</h5><ul class="fl"><li><a href="citizen.html#gas">تسجيل دور الغاز</a></li><li><a href="citizen.html#complaint">إرسال شكوى</a></li><li><a href="citizen.html#track">متابعة الطلبات</a></li></ul></div>
+    <div class="fco"><h5>البوابة</h5><ul class="fl"><li><a href="#about">عن المدينة</a></li><li><a href="#news">الأخبار</a></li><li><a href="#gal">معرض الصور</a></li></ul></div>
+    <div class="fco"><h5>الإدارة</h5><ul class="fl"><li><a href="admin.html">لوحة التحكم</a></li><li><a href="admin.html">إدارة الغاز</a></li><li><a href="admin.html">إدارة الأخبار</a></li></ul></div>
+  </div>
+  <div class="fbot">
+    <span>© 2025 بوابة سقبا الرقمية</span>
+    <span style="color:var(--goldd)">صُنع بـ ❤️ لسكان سقبا</span>
+  </div>
+</footer>
+
+<div class="lb" id="lb"><div class="lbc" onclick="document.getElementById('lb').classList.remove('active')">✕</div><img id="lbi" src="" alt=""></div>
+<div class="toast" id="toast"></div>
+
+<script src="js/utils.js"></script>
+<script type="module" src="js/firebase-config.js"></script>
+<script>
+/* PARTICLES */
+const cv=document.getElementById('pc'),cx=cv.getContext('2d');
+let W,H,pts=[];
+function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+window.addEventListener('resize',rsz);rsz();
+class P{
+  constructor(){this.rst()}
+  rst(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.6+.3;this.vx=(Math.random()-.5)*.35;this.vy=(Math.random()-.5)*.35;this.l=Math.random();this.ml=Math.random()*.4+.3;this.g=Math.random()>.7}
+  upd(){this.x+=this.vx;this.y+=this.vy;this.l+=.003;if(this.x<0||this.x>W||this.y<0||this.y>H||this.l>this.ml+.5)this.rst()}
+  drw(){const a=Math.sin(this.l/this.ml*Math.PI)*.7;cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fillStyle=this.g?`rgba(201,162,39,${a*.6})`:`rgba(0,212,216,${a*.45})`;cx.fill();if(this.r>1.2){cx.beginPath();cx.arc(this.x,this.y,this.r*2.5,0,Math.PI*2);cx.fillStyle=this.g?`rgba(201,162,39,${a*.08})`:`rgba(0,212,216,${a*.06})`;cx.fill()}}
+}
+for(let i=0;i<180;i++)pts.push(new P());
+function drawLines(){for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){cx.beginPath();cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.strokeStyle=`rgba(0,212,216,${(1-d/100)*.06})`;cx.lineWidth=.5;cx.stroke()}}}}
+function anim(){cx.clearRect(0,0,W,H);drawLines();pts.forEach(p=>{p.upd();p.drw()});requestAnimationFrame(anim)}
+anim();
+
+/* CURSOR */
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function ac(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';cur.style.background='var(--cyan)';ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='var(--cyan)'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';cur.style.background='var(--gold)';ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(201,162,39,.45)'});
+});
+
+/* NAV SCROLL */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>40),{passive:true});
+
+/* REVEAL */
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+
+/* COUNTER */
+function cnt(el,t){const d=1800,s=performance.now();(function u(n){const p=Math.min((n-s)/d,1),e=1-Math.pow(1-p,4);el.textContent=Math.floor(e*t).toLocaleString('ar');if(p<1)requestAnimationFrame(u);else el.textContent=t.toLocaleString('ar')})(s)}
+
+/* FIREBASE DATA */
+if(typeof FirestoreService==='undefined')window.FirestoreService={getDashboardStats:async()=>({totalUsers:0,totalGasRequests:0,totalComplaints:0}),getNews:async()=>[],getGallery:async()=>[]};
+if(typeof formatDate==='undefined')window.formatDate=ts=>{if(!ts)return'';const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleDateString('ar-SY',{year:'numeric',month:'long',day:'numeric'})};
+if(typeof esc==='undefined')window.esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+
+async function loadAll(){
+  // Stats
+  try{const s=await FirestoreService.getDashboardStats();cnt(document.getElementById('su'),s.totalUsers);cnt(document.getElementById('sr'),s.totalGasRequests);cnt(document.getElementById('sc2'),s.totalComplaints)}catch(e){}
+  // News
+  const nc=document.getElementById('news-con');
+  try{
+    const n=await FirestoreService.getNews(5);
+    if(!n.length){nc.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--tx3)"><div style="font-size:2.5rem;margin-bottom:1rem">📰</div><div style="font-weight:600;color:var(--tx2);margin-bottom:.3rem">لا توجد أخبار حالياً</div><div style="font-size:.82rem">سيتم نشر الأخبار قريباً</div></div>`;return}
+    nc.innerHTML=n.map((it,i)=>`<div class="ncard${i===0?' feat':''}"><div class="${it.image?'':'nimp'}">${it.image?`<img class="nim" src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy">`:'📰'}</div><div class="nb2"><div class="nm"><span class="ntg">إعلان</span><span class="nd">📅 ${formatDate(it.createdAt)}</span></div><div class="ntc">${esc(it.title)}</div><div class="nex">${esc(it.content)}</div></div></div>`).join('');
+  }catch(e){nc.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--tx3)">⚠️ تعذّر تحميل الأخبار</div>`}
+  // Gallery
+  const gc=document.getElementById('gal-con');
+  try{
+    const g=await FirestoreService.getGallery();
+    if(!g.length){gc.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--tx3)"><div style="font-size:2.5rem;margin-bottom:1rem">🖼️</div><div style="font-weight:600;color:var(--tx2)">لا توجد صور بعد</div></div>`;return}
+    gc.innerHTML=g.slice(0,6).map(it=>`<div class="gi" onclick="openLb('${esc(it.image)}')"><img class="gimg" src="${esc(it.image)}" alt="${esc(it.description||'')}" loading="lazy"><div class="gov"><span class="gl">${esc(it.description||'')}</span></div></div>`).join('');
+  }catch(e){gc.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--tx3)">⚠️ تعذّر تحميل المعرض</div>`}
+}
+
+function openLb(s){document.getElementById('lbi').src=s;document.getElementById('lb').classList.add('active');document.body.style.overflow='hidden'}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===e.currentTarget){e.currentTarget.classList.remove('active');document.body.style.overflow=''}});
+
+document.addEventListener('DOMContentLoaded',loadAll);
+</script>
+</body>
+</html>
