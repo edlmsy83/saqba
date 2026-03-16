@@ -1,12 +1,488 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>حساب المواطن — بوابة سقبا</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/citizen.css">
+<style>
+/* ═══════════════════════════════════════════════
+   citizen.css — بوابة المواطن
+   Aesthetic: Cinematic Arab Luxury — Teal + Gold
+   ═══════════════════════════════════════════════ */
+
+/* ── BASE ──────────────────────────────────────── */
+:root{
+  --ink:#020c0e;--deep:#041215;--abyss:#061a1d;
+  --t9:#082228;--t8:#0b2d34;--t7:#0e3840;--t3:#22909f;--t2:#3ab8ca;--t1:#7dd8e6;
+  --gold:#c9a227;--goldb:#e8c547;--goldd:#8a6d18;--goldg:rgba(201,162,39,.35);
+  --cyan:#00d4d8;--red:#ef4444;--redf:rgba(239,68,68,.12);--redb:rgba(239,68,68,.28);
+  --tx1:#eef7f8;--tx2:#9bbfc5;--tx3:#4d7e87;
+  --glass:rgba(8,34,40,.65);--glbr:rgba(0,212,216,.16);--glbrd:rgba(0,212,216,.32);
+  --bd:rgba(0,212,216,.08);--bdm:rgba(0,212,216,.16);
+  --fb:'Tajawal',sans-serif;--fd:'Amiri',serif;
+  --eoe:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;width:100%}
+body{font-family:var(--fb);background:var(--ink);color:var(--tx1);direction:rtl;min-height:100vh;width:100%;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--t7);border-radius:99px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:0;opacity:.5}
+
+/* ══════════════════════════════════════════════════
+   AUTH PAGE — Full Cinematic Experience
+   ══════════════════════════════════════════════════ */
+.auth-page{
+  position:relative;min-height:100vh;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:2rem 1.5rem;overflow:hidden;z-index:1;
+}
+
+/* Dramatic radial atmosphere */
+.auth-page::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 100% 70% at 50% -10%,rgba(0,212,216,.09) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 60% at 5%  80%, rgba(201,162,39,.06) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 95% 20%, rgba(0,212,216,.05) 0%,transparent 50%),
+    var(--ink);
+  pointer-events:none;
+}
+
+/* Animated top border sweep */
+.auth-page::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--t3) 30%,var(--gold) 50%,var(--t3) 70%,transparent);
+  background-size:200% 100%;animation:sweep 4s linear infinite;
+}
+@keyframes sweep{0%{background-position:-100% 0}100%{background-position:200% 0}}
+
+/* Large geometric background rings */
+.auth-ring{position:absolute;border-radius:50%;pointer-events:none}
+.auth-ring-1{
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:900px;height:900px;
+  border:1px solid rgba(0,212,216,.05);
+  animation:ring-spin 60s linear infinite;
+}
+.auth-ring-2{
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:650px;height:650px;
+  border:1px solid rgba(201,162,39,.05);
+  animation:ring-spin 40s linear infinite reverse;
+}
+@keyframes ring-spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* Split layout: decoration + card */
+.auth-layout{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;max-width:1000px;width:100%;
+  background:var(--glass);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glbr);border-radius:28px;
+  box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03),inset 0 1px 0 rgba(255,255,255,.05);
+  overflow:hidden;
+  animation:card-rise .8s var(--eoe) forwards;
+  opacity:0;
+}
+@keyframes card-rise{from{opacity:0;transform:translateY(32px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Left decoration panel */
+.auth-deco{
+  padding:3rem 2.5rem;
+  background:linear-gradient(160deg,rgba(0,212,216,.07) 0%,rgba(201,162,39,.05) 50%,rgba(0,0,0,.2) 100%);
+  border-left:1px solid var(--bd);
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.auth-deco::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='200,20 220,90 290,70 250,130 300,180 230,175 220,250 200,185 180,250 170,175 100,180 150,130 110,70 180,90' fill='none' stroke='%23c9a227' stroke-width='0.6' opacity='0.25'/%3E%3Ccircle cx='200' cy='200' r='160' fill='none' stroke='%2300d4d8' stroke-width='0.5' opacity='0.15'/%3E%3Ccircle cx='200' cy='200' r='110' fill='none' stroke='%23c9a227' stroke-width='0.5' opacity='0.12'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='%2300d4d8' stroke-width='0.5' opacity='0.15'/%3E%3Cline x1='200' y1='20' x2='200' y2='380' stroke='%2300d4d8' stroke-width='0.4' opacity='0.08'/%3E%3Cline x1='20' y1='200' x2='380' y2='200' stroke='%2300d4d8' stroke-width='0.4' opacity='0.08'/%3E%3Cline x1='70' y1='70' x2='330' y2='330' stroke='%23c9a227' stroke-width='0.3' opacity='0.08'/%3E%3Cline x1='330' y1='70' x2='70' y2='330' stroke='%23c9a227' stroke-width='0.3' opacity='0.08'/%3E%3C/svg%3E") center/cover;
+  opacity:.6;
+}
+.auth-deco-top{position:relative;z-index:1}
+.auth-deco-emblem{
+  width:56px;height:56px;
+  background:linear-gradient(135deg,var(--gold),var(--goldd));
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+  box-shadow:0 8px 24px var(--goldg);margin-bottom:1.5rem;
+}
+.auth-deco-title{font-family:var(--fd);font-size:2rem;font-weight:700;line-height:1.2;color:var(--tx1);margin-bottom:.75rem}
+.auth-deco-title span{display:block;background:linear-gradient(135deg,var(--goldb),var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.auth-deco-desc{font-size:.85rem;color:var(--tx3);line-height:1.85}
+.auth-deco-bottom{position:relative;z-index:1}
+.auth-deco-features{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+.auth-deco-features li{display:flex;align-items:center;gap:.65rem;font-size:.82rem;color:var(--tx2)}
+.auth-deco-features li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex-shrink:0}
+
+/* Right form panel */
+.auth-form-panel{padding:2.5rem}
+.auth-head{margin-bottom:1.8rem}
+.auth-title{font-size:1.35rem;font-weight:800;color:var(--tx1);margin-bottom:.3rem}
+.auth-sub{font-size:.82rem;color:var(--tx3)}
+
+/* Auth tabs */
+.atabs{
+  display:flex;background:rgba(0,0,0,.25);
+  border:1px solid var(--bd);border-radius:10px;
+  padding:.28rem;margin-bottom:1.75rem;gap:.2rem;
+}
+.atab{
+  flex:1;padding:.62rem;border:none;border-radius:8px;
+  background:transparent;color:var(--tx3);
+  font-family:var(--fb);font-size:.87rem;font-weight:600;
+  cursor:pointer;transition:all .3s var(--eoe);
+}
+.atab.on{
+  background:linear-gradient(135deg,var(--gold),var(--goldd));
+  color:#050e10;box-shadow:0 3px 14px var(--goldg);
+}
+.aform{display:none;animation:fadein .3s ease}.aform.on{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.auth-switch{text-align:center;margin-top:1rem;font-size:.8rem;color:var(--tx3)}
+.auth-switch span{color:var(--goldb);cursor:pointer;font-weight:700;transition:color .2s}
+.auth-switch span:hover{color:var(--gold)}
+.auth-back{
+  display:block;text-align:center;margin-top:1.5rem;
+  padding-top:1.2rem;border-top:1px solid var(--bd);
+  font-size:.8rem;color:var(--tx3);text-decoration:none;transition:color .2s;
+}
+.auth-back:hover{color:var(--t2)}
+
+/* Responsive auth */
+@media(max-width:760px){
+  .auth-layout{grid-template-columns:1fr;max-width:460px}
+  .auth-deco{display:none}
+}
+
+/* ══════════════════════════════════════════════════
+   FORM ELEMENTS
+   ══════════════════════════════════════════════════ */
+.fgrp{margin-bottom:1.2rem}
+.flbl{display:block;font-size:.8rem;font-weight:600;color:var(--tx3);margin-bottom:.4rem;letter-spacing:.02em}
+.flbl .req{color:var(--goldb);margin-right:2px}
+.finp,.fsel,.ftxt{
+  width:100%;background:rgba(255,255,255,.04);
+  border:1.5px solid rgba(0,212,216,.1);border-radius:9px;
+  padding:.72rem 1rem;color:var(--tx1);
+  font-family:var(--fb);font-size:.9rem;
+  outline:none;transition:all .25s;direction:rtl;
+}
+.finp:focus,.fsel:focus,.ftxt:focus{
+  border-color:var(--cyan);background:rgba(0,212,216,.05);
+  box-shadow:0 0 0 3px rgba(0,212,216,.12);
+}
+.finp::placeholder{color:var(--tx3)}
+.ftxt{resize:vertical;min-height:130px}
+.fsel option{background:var(--t8)}
+.fhint{font-size:.73rem;color:var(--tx3);margin-top:.3rem}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:480px){.fgrid{grid-template-columns:1fr}}
+/* Validation states */
+.finp-ok {border-color:rgba(16,185,129,.5)!important;background:rgba(16,185,129,.04)!important}
+.finp-err{border-color:rgba(239,68,68,.5)!important;background:rgba(239,68,68,.04)!important}
+
+/* ══════════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.75rem 1.6rem;border-radius:9px;
+  font-family:var(--fb);font-size:.9rem;font-weight:700;
+  cursor:pointer;border:none;outline:none;
+  transition:all .25s var(--eoe);white-space:nowrap;
+  text-decoration:none;position:relative;overflow:hidden;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold),var(--goldd));
+  color:#050e10;box-shadow:0 4px 20px var(--goldg);
+}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--goldb),var(--gold));opacity:0;transition:opacity .25s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,162,39,.5)}
+.btn-primary:hover::before{opacity:1}
+.btn-primary span{position:relative;z-index:1}
+.btn-ghost{background:rgba(0,212,216,.07);color:var(--t2);border:1px solid var(--bd)}
+.btn-ghost:hover{background:rgba(0,212,216,.14);border-color:var(--glbr)}
+.btn-danger{background:var(--redf);color:#fca5a5;border:1px solid var(--redb)}
+.btn-danger:hover{background:rgba(239,68,68,.2)}
+.btn-sm{padding:.42rem .85rem;font-size:.78rem;border-radius:7px}
+.btn-lg{padding:.9rem 2rem;font-size:.95rem;border-radius:10px}
+.btn-full{width:100%}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+.btn-loading .btxt{opacity:0}
+.btn-loading::after{content:'';position:absolute;width:18px;height:18px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══════════════════════════════════════════════════
+   DASHBOARD LAYOUT
+   ══════════════════════════════════════════════════ */
+.app{display:flex;min-height:100vh;width:100%;position:relative;z-index:1}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:260px;flex-shrink:0;
+  background:linear-gradient(180deg,rgba(8,34,40,.98) 0%,rgba(4,18,21,.99) 100%);
+  border-left:1px solid rgba(0,212,216,.1);
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  box-shadow:4px 0 40px rgba(0,0,0,.4);
+}
+
+/* Sidebar brand */
+.sb-brand{
+  padding:1.6rem 1.5rem 1.2rem;
+  border-bottom:1px solid rgba(0,212,216,.07);
+  position:relative;overflow:hidden;
+}
+.sb-brand::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:120px;height:120px;
+  background:radial-gradient(circle,rgba(201,162,39,.12),transparent 70%);
+  pointer-events:none;
+}
+.sb-user-row{display:flex;align-items:center;gap:.9rem;position:relative;z-index:1}
+.sb-av{
+  width:46px;height:46px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold),var(--goldd));
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+  box-shadow:0 4px 16px var(--goldg);
+  border:2px solid rgba(201,162,39,.3);
+}
+.sb-name{font-size:.92rem;font-weight:700;color:var(--tx1)}
+.sb-dist{font-size:.72rem;color:var(--tx3);margin-top:.15rem;display:flex;align-items:center;gap:.3rem}
+.sb-dist::before{content:'📍';font-size:.6rem}
+
+/* Sidebar nav */
+.sb-nav{flex:1;padding:.9rem .75rem;display:flex;flex-direction:column;gap:.15rem}
+.sb-item{
+  display:flex;align-items:center;gap:.8rem;
+  padding:.75rem 1rem;border-radius:10px;
+  cursor:pointer;border:none;background:transparent;
+  color:var(--tx3);font-family:var(--fb);font-size:.86rem;font-weight:500;
+  transition:all .25s var(--eoe);text-align:right;width:100%;
+  position:relative;
+}
+.sb-item:hover{color:var(--tx1);background:rgba(255,255,255,.05)}
+.sb-item.on{
+  color:var(--goldb);
+  background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(201,162,39,.05));
+  border-right:2px solid var(--gold);
+}
+.sb-item.on::before{
+  content:'';position:absolute;right:0;top:20%;bottom:20%;
+  width:3px;background:linear-gradient(180deg,var(--goldb),var(--gold));
+  border-radius:99px;box-shadow:0 0 8px var(--goldg);
+}
+.sb-item .ic{font-size:.95rem;width:20px;text-align:center;flex-shrink:0}
+
+.sb-foot{
+  padding:.75rem;border-top:1px solid rgba(0,212,216,.07);
+  display:flex;flex-direction:column;gap:.5rem;
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  background:rgba(4,18,21,.95);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(0,212,216,.08);
+  padding:.85rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 2px 20px rgba(0,0,0,.3);
+}
+.topbar-title{
+  font-size:.95rem;font-weight:700;color:var(--tx1);
+  display:flex;align-items:center;gap:.55rem;
+}
+.topbar-back{
+  font-size:.78rem;color:var(--tx3);text-decoration:none;
+  display:flex;align-items:center;gap:.3rem;
+  transition:color .2s;padding:.4rem .75rem;
+  border:1px solid var(--bd);border-radius:7px;
+  background:rgba(0,0,0,.2);
+}
+.topbar-back:hover{color:var(--t2);border-color:var(--glbr)}
+
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.content{padding:2rem;max-width:900px;width:100%}
+
+/* ── PANELS ── */
+.panel{
+  background:rgba(8,34,40,.6);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(0,212,216,.12);
+  border-radius:18px;overflow:hidden;margin-bottom:1.8rem;
+  box-shadow:0 8px 40px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03);
+  transition:border-color .3s,box-shadow .3s;
+}
+.panel:hover{border-color:rgba(0,212,216,.2)}
+.panel-head{
+  display:flex;align-items:center;gap:.75rem;
+  padding:1.2rem 1.6rem;border-bottom:1px solid rgba(0,212,216,.08);
+  background:rgba(0,0,0,.2);
+}
+.panel-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.pi-gold{background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.25)}
+.pi-teal{background:rgba(0,212,216,.1);border:1px solid rgba(0,212,216,.2)}
+.pi-red{background:var(--redf);border:1px solid var(--redb)}
+.panel-title{font-size:.92rem;font-weight:700;color:var(--tx1)}
+.panel-body{padding:1.6rem}
+
+/* ── STATS CARDS ── */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.1rem;margin-bottom:2rem}
+.stat-card{
+  background:rgba(8,34,40,.7);
+  border:1px solid rgba(0,212,216,.1);
+  border-radius:14px;padding:1.3rem;
+  display:flex;align-items:center;gap:1rem;
+  transition:all .3s var(--eoe);position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;right:0;width:80px;height:80px;
+  border-radius:50%;opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.stat-card.gold-card::before{background:radial-gradient(circle,rgba(201,162,39,.12),transparent 70%)}
+.stat-card.teal-card::before{background:radial-gradient(circle,rgba(0,212,216,.1),transparent 70%)}
+.stat-card:hover{border-color:rgba(0,212,216,.25);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.stat-card:hover::before{opacity:1}
+.stat-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.si-gold{background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.2)}
+.si-teal{background:rgba(0,212,216,.12);border:1px solid rgba(0,212,216,.2)}
+.stat-n{font-size:1.9rem;font-weight:900;color:var(--tx1);line-height:1}
+.stat-l{font-size:.72rem;color:var(--tx3);margin-top:.2rem}
+
+/* ── QUEUE REVEAL ── */
+.queue-card{
+  background:linear-gradient(145deg,rgba(201,162,39,.08),rgba(0,212,216,.04),rgba(0,0,0,.2));
+  border:1px solid rgba(201,162,39,.3);border-radius:20px;
+  padding:3.5rem 2rem;text-align:center;margin-top:1.5rem;
+  position:relative;overflow:hidden;
+  animation:queue-appear .7s var(--eoe) forwards;
+  opacity:0;
+}
+@keyframes queue-appear{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.queue-card::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(201,162,39,.08),transparent 65%);
+  pointer-events:none;
+}
+.queue-lbl{font-size:.75rem;color:var(--tx3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;position:relative}
+.queue-num{
+  font-family:var(--fd);font-size:6rem;font-weight:700;
+  background:linear-gradient(135deg,var(--goldb) 0%,var(--gold) 50%,var(--t2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;position:relative;
+  filter:drop-shadow(0 0 30px rgba(201,162,39,.4));
+}
+.queue-sub{font-size:.83rem;color:var(--tx3);margin-top:1.2rem;line-height:1.8;position:relative}
+.queue-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.2rem auto}
+
+/* ── REQUEST ITEMS ── */
+.req-list{display:flex;flex-direction:column;gap:.85rem}
+.req-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 1.4rem;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(0,212,216,.07);border-radius:12px;
+  transition:all .25s;
+}
+.req-item:hover{border-color:rgba(0,212,216,.18);background:rgba(0,212,216,.03);transform:translateX(-3px)}
+.req-num{
+  font-size:1.5rem;font-weight:900;
+  background:linear-gradient(135deg,var(--goldb),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  min-width:46px;text-align:center;flex-shrink:0;
+}
+.req-info{flex:1;min-width:0}
+.req-title{font-size:.88rem;font-weight:600;color:var(--tx1);margin-bottom:.25rem}
+.req-meta{font-size:.74rem;color:var(--tx3);display:flex;gap:.9rem;flex-wrap:wrap}
+
+/* ── STATUS BADGES ── */
+.badge{display:inline-flex;align-items:center;padding:.25rem .75rem;border-radius:50px;font-size:.72rem;font-weight:700;white-space:nowrap;flex-shrink:0}
+.b-pending  {background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.25)}
+.b-approved {background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.25)}
+.b-delivered{background:rgba(0,212,216,.1);color:var(--t2);border:1px solid rgba(0,212,216,.25)}
+.b-rejected {background:var(--redf);color:#fca5a5;border:1px solid var(--redb)}
+
+/* ── TABS ── */
+.tabs{display:flex;background:rgba(0,0,0,.25);border:1px solid var(--bd);border-radius:10px;padding:.28rem;gap:.2rem;margin-bottom:1.5rem}
+.tabbtn{flex:1;padding:.58rem 1rem;border:none;border-radius:7px;background:transparent;color:var(--tx3);font-family:var(--fb);font-size:.84rem;font-weight:600;cursor:pointer;transition:all .25s}
+.tabbtn.on{background:linear-gradient(135deg,var(--gold),var(--goldd));color:#050e10;box-shadow:0 2px 10px var(--goldg)}
+.tc{display:none}.tc.on{display:block;animation:fadein .3s ease}
+
+/* ── FILE UPLOAD ── */
+.upload-zone{
+  border:2px dashed rgba(0,212,216,.18);border-radius:14px;
+  padding:2rem;text-align:center;cursor:pointer;
+  transition:all .3s;background:rgba(0,212,216,.02);
+  position:relative;overflow:hidden;
+}
+.upload-zone:hover,.upload-zone.drag{
+  border-color:var(--cyan);background:rgba(0,212,216,.07);
+  box-shadow:0 0 0 4px rgba(0,212,216,.06);
+}
+.upload-zone input{display:none}
+.upload-ico{font-size:2.2rem;margin-bottom:.6rem;color:var(--tx3)}
+.upload-txt{font-size:.82rem;color:var(--tx3)}
+.upload-txt strong{color:var(--t2)}
+.file-prev{display:flex;align-items:center;gap:.8rem;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:9px;padding:.7rem 1rem;margin-top:.8rem}
+.file-prev-name{font-size:.82rem;color:#34d399;flex:1}
+.file-rm{background:none;border:none;color:#fca5a5;cursor:pointer;font-size:.78rem;font-family:var(--fb)}
+
+/* ── PROFILE ROWS ── */
+.prof-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 1.2rem;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(0,212,216,.07);border-radius:10px;
+  margin-bottom:.6rem;transition:border-color .2s;
+}
+.prof-row:hover{border-color:rgba(0,212,216,.15)}
+.prof-key{font-size:.8rem;color:var(--tx3)}
+.prof-val{font-size:.87rem;font-weight:600;color:var(--tx1)}
+
+/* ── NOTICE BOX ── */
+.notice{
+  background:linear-gradient(135deg,rgba(201,162,39,.06),rgba(201,162,39,.02));
+  border:1px solid rgba(201,162,39,.2);border-radius:11px;
+  padding:1rem 1.2rem;font-size:.81rem;color:var(--tx2);line-height:1.75;
+  margin-bottom:1.4rem;display:flex;gap:.75rem;align-items:flex-start;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+}
+.notice-ico{font-size:1rem;flex-shrink:0;margin-top:.1rem}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;top:1.5rem;left:50%;
+  transform:translateX(-50%) translateY(-70px);
+  z-index:9999;display:flex;align-items:center;gap:.65rem;
+  padding:.85rem 1.5rem;border-radius:14px;font-size:.87rem;font-weight:600;
+  backdrop-filter:blur(20px);min-width:260px;justify-content:center;
+  transition:transform .4s var(--eoe);pointer-events:none;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast-ok {background:rgba(0,212,216,.14);border:1px solid rgba(0,212,216,.35);color:var(--t1)}
+.toast-err{background:var(--redf);border:1px solid var(--redb);color:#fca5a5}
+
+/* ── VIEW PANELS ── */
+.vp{display:none}.vp.on{display:block;animation:fadein .35s ease}
+
+/* ── MOBILE ── */
+.mob-btn{display:none;background:rgba(0,212,216,.08);border:1px solid var(--bd);border-radius:8px;padding:.45rem .65rem;font-size:1.1rem;cursor:pointer;color:var(--t2);align-items:center}
+@media(max-width:900px){
+  .sidebar{position:fixed;right:-265px;z-index:200;height:100vh;transition:right .35s var(--eoe)}
+  .sidebar.open{right:0}
+  .mob-btn{display:flex}
+  .content{padding:1rem}
+}
+
+</style>
 </head>
 <body>
 
@@ -16,10 +492,27 @@
   <div class="auth-ring auth-ring-1"></div>
   <div class="auth-ring auth-ring-2"></div>
 
-  <div class="auth-card">
+  <div class="auth-layout">
+
+    <!-- Decoration panel -->
+    <div class="auth-deco">
+      <div class="auth-deco-top">
+        <div class="auth-deco-emblem">🕌</div>
+        <div class="auth-deco-title">بوابة<span>سقبا الرقمية</span></div>
+        <p class="auth-deco-desc">منصة متكاملة تقدم الخدمات الأساسية لسكان مدينة سقبا بشكل رقمي سريع وسهل.</p>
+      </div>
+      <ul class="auth-deco-features">
+        <li>تسجيل دور الغاز ومتابعة الطابور</li>
+        <li>إرسال الشكاوى لإدارة المدينة</li>
+        <li>متابعة طلباتك في الوقت الفعلي</li>
+        <li>إشعارات فورية عند اقتراب دورك</li>
+      </ul>
+    </div>
+
+    <!-- Form panel -->
+    <div class="auth-form-panel">
     <div class="auth-head">
-      <div class="auth-logo">👤</div>
-      <h1 class="auth-title">حساب المواطن</h1>
+      <h1 class="auth-title">مرحباً بك 👋</h1>
       <p class="auth-sub">سجّل الدخول أو أنشئ حساباً للوصول إلى الخدمات</p>
     </div>
 
@@ -83,7 +576,8 @@
     </form>
 
     <a href="index.html" class="auth-back">← العودة للبوابة الرئيسية</a>
-  </div>
+    </div><!-- /auth-form-panel -->
+  </div><!-- /auth-layout -->
 </div>
 </div>
 
@@ -93,10 +587,14 @@
 
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
-    <div class="sb-head">
-      <div class="sb-av">👤</div>
-      <div class="sb-name" id="sb-name">...</div>
-      <div class="sb-dist"><span>📍</span><span id="sb-dist"></span></div>
+    <div class="sb-brand">
+      <div class="sb-user-row">
+        <div class="sb-av">👤</div>
+        <div>
+          <div class="sb-name" id="sb-name">...</div>
+          <div class="sb-dist"><span id="sb-dist">سقبا</span></div>
+        </div>
+      </div>
     </div>
     <nav class="sb-nav">
       <button class="sb-item on" onclick="gv('overview')" id="ni-overview"><span class="ic">🏠</span>نظرة عامة</button>
@@ -263,8 +761,296 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="js/utils.js"></script>
-<script type="module" src="js/firebase-config.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════
+   بوابة سقبا — Shared Utilities
+   - XSS Sanitizer
+   - Image Compressor
+   - Form Validators
+   - Helpers
+   ═══════════════════════════════════════════════════ */
+
+// ── XSS SANITIZER ───────────────────────────────────
+// منع حقن الكود الخبيث في innerHTML
+const Sanitizer = {
+  // تحويل الحروف الخطيرة إلى HTML entities
+  escape(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g,  '&amp;')
+      .replace(/</g,  '&lt;')
+      .replace(/>/g,  '&gt;')
+      .replace(/"/g,  '&quot;')
+      .replace(/'/g,  '&#x27;')
+      .replace(/\//g, '&#x2F;');
+  },
+
+  // تنظيف نص مع السماح بـ line breaks فقط
+  text(str) {
+    return this.escape(str).replace(/\n/g, '<br>');
+  },
+
+  // استخدام textContent بدلاً من innerHTML للنصوص البسيطة
+  setTextSafe(el, str) {
+    if (typeof el === 'string') el = document.getElementById(el);
+    if (el) el.textContent = str ?? '';
+  }
+};
+
+// اختصار مريح
+const esc = (s) => Sanitizer.escape(s);
+
+
+// ── IMAGE COMPRESSOR ─────────────────────────────────
+// ضغط الصور قبل رفعها لـ Firebase Storage
+const ImageCompressor = {
+  /**
+   * @param {File} file - ملف الصورة الأصلي
+   * @param {object} options - خيارات الضغط
+   * @param {number} options.maxWidth  - أقصى عرض بالبكسل (افتراضي: 1200)
+   * @param {number} options.maxHeight - أقصى ارتفاع بالبكسل (افتراضي: 1200)
+   * @param {number} options.quality  - جودة JPEG من 0 إلى 1 (افتراضي: 0.82)
+   * @param {number} options.maxSizeKB - الحد الأقصى للحجم بـ KB (افتراضي: 800)
+   * @returns {Promise<File>} - ملف مضغوط
+   */
+  async compress(file, options = {}) {
+    const {
+      maxWidth  = 1200,
+      maxHeight = 1200,
+      quality   = 0.82,
+      maxSizeKB = 800,
+    } = options;
+
+    // إذا الصورة صغيرة أصلاً — أرجعها كما هي
+    if (file.size <= maxSizeKB * 1024) return file;
+
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+
+        // حساب الأبعاد الجديدة مع الحفاظ على النسبة
+        let { width, height } = img;
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width  = Math.round(width  * ratio);
+          height = Math.round(height * ratio);
+        }
+
+        // الرسم على Canvas
+        const canvas = document.createElement('canvas');
+        canvas.width  = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // تحديد نوع الملف الناتج:
+        // PNG  → يبقى PNG  (للحفاظ على الشفافية)
+        // WebP → يبقى WebP (تنسيق حديث وخفيف، لا حاجة للتحويل)
+        // JPEG/HEIC/غيرها → JPEG
+        const outputType =
+          file.type === 'image/png'  ? 'image/png'  :
+          file.type === 'image/webp' ? 'image/webp' :
+          'image/jpeg';
+        const ext =
+          outputType === 'image/png'  ? 'png'  :
+          outputType === 'image/webp' ? 'webp' :
+          'jpg';
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) { reject(new Error('فشل ضغط الصورة')); return; }
+            const compressed = new File(
+              [blob],
+              file.name.replace(/\.[^.]+$/, `.${ext}`),
+              { type: outputType, lastModified: Date.now() }
+            );
+            console.log(
+              `[ImageCompressor] ${(file.size/1024).toFixed(0)}KB → ` +
+              `${(compressed.size/1024).toFixed(0)}KB ` +
+              `(${Math.round((1 - compressed.size/file.size)*100)}% تقليص)`
+            );
+            resolve(compressed);
+          },
+          outputType,
+          quality
+        );
+      };
+
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('تعذّر قراءة الصورة')); };
+      img.src = url;
+    });
+  },
+
+  // ضغط مخصص للصور المصغرة (thumbnails)
+  async thumbnail(file) {
+    return this.compress(file, { maxWidth: 400, maxHeight: 400, quality: 0.75, maxSizeKB: 150 });
+  },
+
+  // ضغط للمعرض
+  async gallery(file) {
+    return this.compress(file, { maxWidth: 1400, maxHeight: 1000, quality: 0.85, maxSizeKB: 600 });
+  },
+
+  // ضغط للشكاوى
+  async complaint(file) {
+    return this.compress(file, { maxWidth: 1000, maxHeight: 1000, quality: 0.80, maxSizeKB: 400 });
+  },
+
+  // ضغط للأخبار
+  async news(file) {
+    return this.compress(file, { maxWidth: 1200, maxHeight: 800, quality: 0.85, maxSizeKB: 500 });
+  }
+};
+
+
+// ── FORM VALIDATORS ──────────────────────────────────
+const Validator = {
+  rules: {
+    required:  (v)    => v.trim().length > 0         || 'هذا الحقل مطلوب',
+    minLen:    (n)    => (v) => v.length >= n         || `الحد الأدنى ${n} أحرف`,
+    phone:     (v)    => /^0[0-9]{8,11}$/.test(v.trim()) || 'رقم الهاتف غير صحيح',
+    email:     (v)    => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || 'البريد الإلكتروني غير صحيح',
+    password:  (v)    => v.length >= 6               || 'كلمة المرور 6 أحرف على الأقل',
+    match:     (other)=> (v) => v === other           || 'كلمتا المرور غير متطابقتان',
+    noXss:     (v)    => !/<[^>]*>/.test(v)           || 'النص يحتوي على رموز غير مسموح بها',
+  },
+
+  // ربط حقل بقاعدة التحقق مع عرض لحظي
+  bind(inputEl, rules = [], options = {}) {
+    const {
+      errorClass = 'finp-err',
+      okClass    = 'finp-ok',
+      feedbackId = null,
+    } = options;
+
+    const validate = () => {
+      const val = inputEl.value;
+      for (const rule of rules) {
+        const result = typeof rule === 'function' ? rule(val) : this.rules[rule]?.(val);
+        if (result !== true) {
+          inputEl.classList.remove(okClass);
+          inputEl.classList.add(errorClass);
+          if (feedbackId) {
+            const fb = document.getElementById(feedbackId);
+            if (fb) { fb.textContent = result; fb.style.display = 'block'; }
+          }
+          return false;
+        }
+      }
+      inputEl.classList.remove(errorClass);
+      inputEl.classList.add(okClass);
+      if (feedbackId) {
+        const fb = document.getElementById(feedbackId);
+        if (fb) fb.style.display = 'none';
+      }
+      return true;
+    };
+
+    inputEl.addEventListener('input', validate);
+    inputEl.addEventListener('blur',  validate);
+    return validate; // أرجع دالة التحقق للاستخدام اليدوي
+  },
+
+  // تحقق من تطابق كلمتي المرور بشكل لحظي
+  bindPasswordMatch(passEl, confirmEl, feedbackId) {
+    const check = () => {
+      const fb = document.getElementById(feedbackId);
+      if (!confirmEl.value) { // لم يبدأ الكتابة بعد
+        confirmEl.classList.remove('finp-ok', 'finp-err');
+        if (fb) fb.style.display = 'none';
+        return;
+      }
+      const match = passEl.value === confirmEl.value;
+      confirmEl.classList.toggle('finp-ok',  match);
+      confirmEl.classList.toggle('finp-err', !match);
+      if (fb) {
+        fb.textContent    = match ? '' : 'كلمتا المرور غير متطابقتان';
+        fb.style.display  = match ? 'none' : 'block';
+        fb.style.color    = '#fca5a5';
+      }
+    };
+    passEl.addEventListener('input',   check);
+    confirmEl.addEventListener('input', check);
+    return check;
+  },
+
+  // قوة كلمة المرور
+  bindPasswordStrength(passEl, strengthBarId) {
+    const bar = document.getElementById(strengthBarId);
+    if (!bar) return;
+
+    passEl.addEventListener('input', () => {
+      const v = passEl.value;
+      let score = 0;
+      if (v.length >= 6)  score++;
+      if (v.length >= 10) score++;
+      if (/[A-Z]/.test(v)) score++;
+      if (/[0-9]/.test(v)) score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+
+      const levels = [
+        { label: '', color: 'transparent', width: '0%' },
+        { label: 'ضعيفة جداً', color: '#ef4444', width: '20%' },
+        { label: 'ضعيفة',      color: '#f59e0b', width: '40%' },
+        { label: 'متوسطة',     color: '#fbbf24', width: '60%' },
+        { label: 'جيدة',       color: '#34d399', width: '80%' },
+        { label: 'قوية',       color: '#00d4d8', width: '100%' },
+      ];
+
+      const lvl = levels[Math.min(score, 5)];
+      const fill = bar.querySelector('.ps-fill');
+      const lbl  = bar.querySelector('.ps-label');
+      if (fill) { fill.style.width = v ? lvl.width : '0%'; fill.style.background = lvl.color; }
+      if (lbl)  lbl.textContent = v ? lvl.label : '';
+    });
+  }
+};
+
+
+// ── TOAST ────────────────────────────────────────────
+function showToast(msg, ok = true) {
+  const existing = document.querySelector('.toast');
+  if (!existing) return;
+  existing.textContent = msg;
+  existing.className   = 'toast ' + (ok ? 'toast-ok' : 'toast-err');
+  existing.classList.add('show');
+  clearTimeout(existing._timer);
+  existing._timer = setTimeout(() => existing.classList.remove('show'), 3500);
+}
+
+
+// ── DATE FORMATTER ───────────────────────────────────
+function formatDate(timestamp) {
+  if (!timestamp) return '—';
+  const d = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+  return d.toLocaleDateString('ar-SY', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+
+// ── STATUS MAP ────────────────────────────────────────
+const statusMap = {
+  pending:     { label: 'قيد الانتظار',  cls: 'b-pending'   },
+  approved:    { label: 'مقبول',          cls: 'b-approved'  },
+  delivered:   { label: 'تم التسليم',    cls: 'b-delivered' },
+  rejected:    { label: 'مرفوض',          cls: 'b-rejected'  },
+  open:        { label: 'مفتوحة',         cls: 'b-pending'   },
+  in_progress: { label: 'قيد المعالجة',  cls: 'b-approved'  },
+  resolved:    { label: 'محلولة',         cls: 'b-delivered' },
+  closed:      { label: 'مغلقة',          cls: 'b-rejected'  },
+};
+
+
+// ── FILE SIZE FORMATTER ──────────────────────────────
+function formatFileSize(bytes) {
+  if (bytes < 1024)        return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+</script>
 <script>
 /* Fallbacks */
 if(typeof FirestoreService==='undefined')window.FirestoreService={createGasRequest:async()=>{throw'no-firebase'},getUserGasRequests:async()=>[],getUserComplaints:async()=>[],createComplaint:async()=>{throw'no-firebase'},getUser:async()=>null,createUser:async()=>{}};
@@ -457,4 +1243,224 @@ function usetf(f){if(f.size>5*1024*1024){toast('حجم الصورة يتجاوز
 function uclr(){selFile=null;document.getElementById('c-img').value='';document.getElementById('fprev').style.display='none'}
 </script>
 </body>
+
+<!-- Firebase Modular SDK -->
+<script type="module">
+/* ═══════════════════════════════════════════════════════
+   بوابة سقبا — firebase-config.js
+   Firebase Modular SDK v10 (Tree-shakeable)
+
+   الفرق الجوهري عن نسخة compat:
+   ✅ يُحمَّل فقط ما نستخدمه (Tree-shaking) — أقل حجماً
+   ✅ الصياغة الرسمية الحديثة لـ Firebase 9/10
+   ✅ getCountFromServer لعد الوثائق دون تحميل بياناتها
+   ═══════════════════════════════════════════════════════ */
+
+import { initializeApp }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import {
+  getAuth, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, signOut, onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import {
+  getFirestore, collection, doc,
+  addDoc, setDoc, getDoc, getDocs,
+  updateDoc, deleteDoc,
+  query, where, orderBy, limit,
+  serverTimestamp, getCountFromServer
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import {
+  getStorage, ref as sRef,
+  uploadBytes, getDownloadURL
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+
+/* ─── استبدل هذه القيم بإعداداتك من Firebase Console ─── */
+const firebaseConfig = {
+  apiKey:            'YOUR_API_KEY',
+  authDomain:        'YOUR_PROJECT_ID.firebaseapp.com',
+  projectId:         'YOUR_PROJECT_ID',
+  storageBucket:     'YOUR_PROJECT_ID.appspot.com',
+  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+  appId:             'YOUR_APP_ID',
+};
+
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);
+const db      = getFirestore(app);
+const storage = getStorage(app);
+
+/* ─── Auth State ─────────────────────────────────────── */
+onAuthStateChanged(auth, (user) => {
+  window.currentUser = user ?? null;
+  document.dispatchEvent(
+    new CustomEvent(user ? 'userLoggedIn' : 'userLoggedOut', { detail: user })
+  );
+});
+
+/* ─── رفع صورة مساعدة ───────────────────────────────── */
+async function uploadImage(file, path) {
+  const compressed = typeof ImageCompressor !== 'undefined'
+    ? await ImageCompressor.compress(file) : file;
+  const r = sRef(storage, `${path}/${Date.now()}_${compressed.name}`);
+  await uploadBytes(r, compressed);
+  return getDownloadURL(r);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FirestoreService
+   ═══════════════════════════════════════════════════════ */
+const FirestoreService = {
+
+  /* ── Users ── */
+  async createUser(uid, data) {
+    return setDoc(doc(db, 'users', uid), { ...data, createdAt: serverTimestamp() });
+  },
+  async getUser(uid) {
+    const s = await getDoc(doc(db, 'users', uid));
+    return s.exists() ? { id: s.id, ...s.data() } : null;
+  },
+
+  /* ── Gas Requests ── */
+  async createGasRequest(data) {
+    const qSnap = await getDocs(
+      query(collection(db, 'gas_requests'), where('district', '==', data.district))
+    );
+    const queueNumber = qSnap.size + 1;
+    const ref = await addDoc(collection(db, 'gas_requests'), {
+      ...data, queueNumber, status: 'pending', createdAt: serverTimestamp()
+    });
+    // نُرجع queueNumber مباشرةً لتجنب استدعاء getDoc إضافي
+    return { id: ref.id, queueNumber };
+  },
+  async getUserGasRequests(userId) {
+    const s = await getDocs(
+      query(collection(db,'gas_requests'), where('userId','==',userId), orderBy('createdAt','desc'))
+    );
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+  async getAllGasRequests(status = null) {
+    const c = [orderBy('createdAt','desc')];
+    if (status) c.unshift(where('status','==',status));
+    const s = await getDocs(query(collection(db,'gas_requests'), ...c));
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+  async updateGasRequestStatus(id, status) {
+    return updateDoc(doc(db,'gas_requests',id), { status });
+  },
+
+  /* ── Complaints ── */
+  async createComplaint(data, imageFile) {
+    const image = imageFile
+      ? await uploadImage(imageFile, 'complaints') : null;
+    return addDoc(collection(db,'complaints'), {
+      ...data, image, status: 'open', createdAt: serverTimestamp()
+    });
+  },
+  async getUserComplaints(userId) {
+    const s = await getDocs(
+      query(collection(db,'complaints'), where('userId','==',userId), orderBy('createdAt','desc'))
+    );
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+  async getAllComplaints() {
+    const s = await getDocs(
+      query(collection(db,'complaints'), orderBy('createdAt','desc'))
+    );
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+  async updateComplaintStatus(id, status) {
+    return updateDoc(doc(db,'complaints',id), { status });
+  },
+
+  /* ── News ── */
+  async getNews(n = 10) {
+    const s = await getDocs(
+      query(collection(db,'news'), orderBy('createdAt','desc'), limit(n))
+    );
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+  async createNews(data, imageFile) {
+    const image = imageFile
+      ? await uploadImage(imageFile, 'news') : null;
+    return addDoc(collection(db,'news'), {
+      ...data, image, createdAt: serverTimestamp()
+    });
+  },
+  async deleteNews(id) {
+    return deleteDoc(doc(db,'news',id));
+  },
+
+  /* ── Gallery ── */
+  async getGallery() {
+    const s = await getDocs(
+      query(collection(db,'gallery'), orderBy('createdAt','desc'))
+    );
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+  async addGalleryImage(data, imageFile) {
+    const image = await uploadImage(imageFile, 'gallery');
+    return addDoc(collection(db,'gallery'), {
+      ...data, image, createdAt: serverTimestamp()
+    });
+  },
+  async deleteGalleryImage(id) {
+    return deleteDoc(doc(db,'gallery',id));
+  },
+
+  /* ── Dashboard Stats (getCountFromServer = فعّال جداً) ── */
+  async getDashboardStats() {
+    const [u, ga, gp, ca, co, n] = await Promise.all([
+      getCountFromServer(collection(db,'users')),
+      getCountFromServer(collection(db,'gas_requests')),
+      getCountFromServer(query(collection(db,'gas_requests'), where('status','==','pending'))),
+      getCountFromServer(collection(db,'complaints')),
+      getCountFromServer(query(collection(db,'complaints'), where('status','==','open'))),
+      getCountFromServer(collection(db,'news')),
+    ]);
+    return {
+      totalUsers:         u.data().count,
+      totalGasRequests:   ga.data().count,
+      pendingGasRequests: gp.data().count,
+      totalComplaints:    ca.data().count,
+      openComplaints:     co.data().count,
+      totalNews:          n.data().count,
+    };
+  },
+
+  /* ── Users list (for admin) ── */
+  async getAllUsers() {
+    const s = await getDocs(
+      query(collection(db,'users'), orderBy('createdAt','desc'))
+    );
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+};
+
+/* ═══════════════════════════════════════════════════════
+   AuthService
+   ═══════════════════════════════════════════════════════ */
+const AuthService = {
+  async register(email, password, userData) {
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    await FirestoreService.createUser(cred.user.uid, { ...userData, email, role: 'citizen' });
+    return cred.user;
+  },
+  async login(email, password) {
+    return signInWithEmailAndPassword(auth, email, password);
+  },
+  async logout() {
+    return signOut(auth);
+  },
+  async isAdmin(uid) {
+    const user = await FirestoreService.getUser(uid);
+    return user?.role === 'admin';
+  },
+};
+
+/* ─── تصدير عالمي ────────────────────────────────────── */
+window.FirestoreService = FirestoreService;
+window.AuthService      = AuthService;
+
+</script>
+
 </html>
